@@ -1,0 +1,52 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[french]{babel}
+\usepackage{fontenc}
+\usepackage{graphicx}
+\usepackage{fullpage}
+\usepackage{url}
+
+% \usepackage[dvips]{hyperref}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\newcommand{\coquille}{\textsc{Coquille}}
+\newcommand{\coqcode}[1]{\texttt{#1}}
+
+\date{4 janvier 2009}
+\title{Rapport final du projet \coquille{}}
+\author{M1 Informatique Fondamentale - ENS Lyon}
+
+\begin{document}
+
+\begin{figure}
+\begin{center}
+ \includegraphics[width=7cm]{poussin.pdf}
+ % poussin.png: 256x256 pixel, 90dpi, 7.23x7.23 cm, bb=0 0 205 205
+\end{center}
+\end{figure}
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\part{Le projet Coquille en g\'en\'eral}
+
+\input{presentation.tex}
+
+\part{Le WP preuves}
+
+\input{proofs.tex}
+
+\part{Le WP IDE}
+
+\input{ide.tex}
+% \input{apprentissage.tex}
+
+\bibliographystyle{plain}
+\bibliography{main}
+
+\end{document}

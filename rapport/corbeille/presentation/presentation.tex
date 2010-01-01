@@ -1,0 +1,298 @@
+\documentclass[slidetop]{beamer}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[francais,french]{babel}
+\usepackage{fontenc}
+\usepackage{graphicx}
+\usepackage{url}
+
+\usetheme{Copenhagen}
+\usepackage{amssymb}
+
+\newcommand{\coquille}{\textsc{Coquille}}
+\newcommand{\coqcode}[1]{\texttt{#1}}
+
+\date{10 novembre 2009}
+\title{Rapport d'avancement du projet \coquille{}} %% Je ne sais pas si c'est encore un rapport d'avancement ...
+\author{M1 Informatique Fondamentale ENS Lyon}
+
+\usepackage{default}
+
+\begin{document}
+%\graphicspath{{img/}}
+\section{Introduction}
+\begin{frame}
+\maketitle
+% quand j'aurais réussi à ajouter le dossier des images:
+\center
+\includegraphics[width=0.25\textwidth]{poussin.jpg}
+
+\end{frame}
+
+\begin{frame}
+\tableofcontents
+
+\end{frame}
+
+\section{Présentation}
+\begin{frame}
+Coquille : Coq User-Interactive Library Learning Expert
+
+Objectifs :
+\begin{itemize}
+  \item Objectif: automatiser la résolution des exercices de mathématiques des classes préparatoires.
+    %% NON !
+    %% à propos, il faut changer les objectifs
+  \item Introduire les mathématiques de classes préparatoires dans Coq. 
+    %% Ça ne veut pas dire grand chose, désolé
+  \item Rendre Coq accessible aux mathématiciens. % non forcément experts en calcul des constructions et en théorie des types. 
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\section{WP Preuves et tactiques}
+\begin{frame}
+
+Le but du WP preuves:
+\begin{itemize}
+  \item établir une liste de théorèmes vus en classes préparatoires en: 
+  \begin{itemize}
+    \item algèbre,
+    \item analyse,
+    \item topologie,
+    \item arithmétique.
+  \end{itemize}
+  \item formaliser les thèorèmes en Coq pour les implémenter.
+  %ça ne veut rien dire ! on n'implémente pas des théorèmes
+  \item proposer des tactiques évoluées d'aide aux prouveurs. 
+  %des tactiques d'aide ?
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+ 
+Quelques jolis résultats:
+\begin{itemize}
+  \item R est indénombrable.
+  \item L'axiomatique des réels implique le principe de Markov.
+  \item La limite de zeta (2) est pi²/6.
+  %zeta(2) est une constante !
+  \item Convergence de suites réelles et construction de limites.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+De nouvelles bibliothèques:
+\begin{itemize}
+  \item Arithmétique.
+  \item Topologie (définition de nombreuses typeclass de base, recherche de définitions les plus générales possibles).
+    %ça a changé, ce n'est pas que de la topologie
+  \item Bibliothèques ordonnées de résultats sur les suites et séries réelles et les suites complexes.
+    %les bibli sont "ordonnées" ? Il faut enlever "bibliothèques", il est déjà avant la liste
+  \item Définition du corps des complexes, résultats de base.
+    %on ne parle pas de concepts.
+  \item Formalisation des séries entières et développements sur les rayons de convergence.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\begin{itemize}
+\item Toute la documentation générée par coqdoc est disponible sur le site du projet. 
+\item Le respect des conventions de nommage permet une utilisation facilitée.
+\end{itemize}
+\end{frame}
+
+
+\section{WP IDE}
+\begin{frame}
+L'objectif du WP IDE est de construire une interface de programmation en Coq plus orientée vers l'aide à la programmation que l'actuel CoqIde.
+%% L'AIDE À LA PROGRAMMATION ?
+% non, pas "plus orientée vers l'aide" non plus. juste plus élaborée avec plus de fonctionalités, et moins de bug (mais pas pour l'instant)
+\end{frame}
+
+\begin{frame}
+Ce que Coquille fait et que CoqIde ne fait pas au niveau du code :
+\begin{itemize}
+    \item Les numéros de ligne.
+    \item Le code folding (replier des lignes de code en une seule, pour une preuve par exemple).
+    \item Des raccourcis plus "classiques", et personnalisables.
+    \item Possibilité de faire "Redo" après des "Undo".
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+
+Au niveau du langage :
+\begin{itemize}
+    \item La gestion de Ltac Debug, avec une interface de parcours des résultatsScreenshot
+    \item Plusieurs instances de Coqtop, une par onglet ouvert
+    \item Un affichage des résultats au choix : classique ou LaTeX-likeScreenshot
+    \item L'action "Next/Previous" d'envoi d'une commande est considérée comme une action comme les autres, donc "Undo/Redo" agit dessus
+\end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+Ce que CoqIde fait au niveau du code :
+
+\begin{itemize}
+    \item Lister les tactiques existantes dans un menu.
+    \item Lister les actions disponibles par click droit sur une hypothèse ou un but.
+\end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+
+Au niveau du langage :
+
+\begin{itemize}
+    \item Le Proof Wizard.
+%    \item La gestion des Write State / Restore State
+    \item La gestion de l'aide.
+    \item La gestions de la compilation.
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+%\includegraphics[width=1\textwidth]{unicode.png}
+%ça ne compile pas ! Ajoutez les images, bordel
+(unicode : oh, c'est beau)
+%montrer des choses que ne peut pas faire coquille (quoi ?)
+\end{frame}
+
+\begin{frame}
+%\includegraphics[width=1\textwidth]{ltacdebug.png}
+(ltac debug)
+\end{frame}
+
+\section{WP Apprentissage}
+\begin{frame}
+%\frametitle{WP Apprentissage} 
+WP Apprentissage
+L'objectif de ce groupe de travail est à partir de nombreux exercices, de créer des tactiques spécifiques à ce type d'exercice.
+\end{frame}
+\begin{frame}
+
+% schéma nécessaire
+\begin{itemize}
+    \item On utilise un arbre de décision. 
+    \item A chaque noeud se trouve une question portant sur les arbres syntaxiques des hypothèses et du but. 
+\begin{itemize}
+    \item Pour la première question, on ne s'autorise à interroger que les racines.
+    \item Ensuite, on s'autorise à interroger les fils des arbres déjà interrogés.
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+Les questions sont:
+\begin{itemize}
+    \item Quel est le token à la racine de l'arbre x?
+    \item Est-ce que les arbres x et y ont le même token en racine?
+\end{itemize}
+
+
+Pour choisir la question à poser, 
+on calcule la question qui nous donne le meilleur rapport "information apportée selon la définition de von Newmann" sur "nombre de réponses". 
+On cherche donc à minimiser la taille de l'arbre (et non sa profondeur),
+car c'est d'elle que dépend le temps d'exécution et l'occupation de la mémoire.
+\end{frame}
+\begin{frame}
+
+Résultats
+\begin{itemize}
+    \item Le parcours d'arbres et le raffinement des données sont utilisables.
+    \item L'algorithme d'apprentissage a été réalisé.
+\end{itemize}
+
+
+
+
+\end{frame}
+
+
+\section{WP Communication}
+
+
+\begin{frame}
+
+WP Communication: objectifs
+\begin{itemize}
+    \item Faciliter la coordination des autres groupes de travail %CHECK !
+    \item Promouvoir le projet et ses résultats auprès de potentiels utilisateurs. %CHECK !
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+Les principales réalisations de ce groupe de travail sont:
+\begin{itemize}
+ 
+    \item les rapports. %CHECK ! ah ce n'est pas matthieu qui les a fait ?
+    \item cette présentation.
+    \item des formations HTML et Latex. %QUOI ????
+    \item le site internet. %CHECK !
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+%% intérêt limité de cette liste ?
+Un site internet a été réalisé et comporte:
+\begin{itemize}
+    \item Un forum 
+    \item Un wiki
+    \item Une présentation du projet 
+    \item Nos résultats
+    \item Une page de contacts
+    \item La documentation de Coquille %NON. N'en déplaise à Eddy, il n'y a pas qu'une documentation de coquille
+     % S'il s'agit de l'IDE voici encore une raison pour CHANGER DE NOM POUR L'IDE !!
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\section{Bibliographie}
+\begin{frame}
+ \begin{itemize}
+\item [1] http://coq.inria.fr/stdlib/ [la coq standard library]
+\item [2] http://c-corn.cs.ru.nl/documentation/toc.html% [les modules disponibles dans Corn]  AH? Parce qu'on a utilisé C-Corn ?
+\item [3] http://graal.ens-lyon.fr/coquille/
+\item [4] http://perso.ens-lyon.fr/jeanmarie.madiot/coquille/forum % Utile ?
+\item [5] http://coquille.wikispot.org/ %% OBSOLÈTE ! Et très utile ...
+\item [6] Artifical intelligence, a modern approach, S. Russel P. Norvig
+
+\end{itemize}
+\end{frame}
+
+
+%\section{Conclusion}
+%\begin{frame}
+ 
+%\end{frame}
+
+\end{document}

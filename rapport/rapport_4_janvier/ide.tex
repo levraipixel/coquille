@@ -1,0 +1,112 @@
+\section{Contexte initial}
+
+    \subsection{État de l'art : coqide}
+
+        \subsubsection{Pas vraiment user-friendly}
+
+            Ici on explique pourquoi on aime pas coder dans coqide.
+
+        \subsubsection{Très opaque}
+
+            Ici on explique qu'on a regardé le code droit dans les yeux et qu'on pouvait pas faire quelque chose de simple dessus.
+
+    \subsection{Les besoins du projet Coquille}
+
+        \subsubsection{WP Preuves / Tactiques}
+
+            A priori aucune attente de ce WP
+
+        \subsubsection{WP Apprentissage}
+
+            Ici on parle des besoins de ce WP
+
+    \subsection{Que faire...}
+
+        \subsubsection{Tenter de modifier coqide ?}
+
+            On explique pourquoi c'était pas envisageable
+
+        \subsubsection{Créer des plugins pour les éditeurs classiques ?}
+
+            Idem
+            
+        \subsubsection{Coder un IDE from scratch ?}
+        
+            Expliquer les avantages de cette solution, présenter quelques inconvénients mais pas trop. 
+
+\section{Quelques choix à faire}
+
+    \subsection{Le Langage utilisé}
+    
+        On parle un peu du C++
+        
+    \subsection{Les Bibliothèques utilisées}
+    
+        On parle de Qt, QCodeEdit, QTermWidget et des soucis qu'on a eu avec : bcp de temps passé à comprendre mais aussi bcp de choses apprises.
+        
+    \subsection{Dialogue avec Coq}
+    
+        On parle de Coqtop un peu, et du fait que ça paraît très sommaire.
+        On parle des échanges de mails avec des responsables à l'inria qui nous disent que ya pas d'API.
+        
+\section{Les problèmes rencontrés}
+
+    \subsection{Au niveau du langage}
+    
+        Rien, d'après moi...
+        
+    \subsection{Au niveau des bibliothèques}
+    
+        Détailler quelques trucs.
+        On peut parler du problème de coloriage du texte qui nous oblige à ne pas colorier le tout dernier point.
+        
+    \subsection{Au niveau du dialogue avec Coq}
+    
+        Les problèmes principaux sont là. On peut parler des trucs qui nous ont longtemps posé problème mais qui sont contournés.
+        Liste non exhaustive à détailler :
+        - La discrimination des erreurs : StdErr pour le prompt uniquement. Absurde...
+        - Les réponses sans réponse : Les \coqcode{Require}, \coqcode{Proof} et companie
+        - Revenir en arrière : Un véritable casse-tête... Le seul PB non résolu actuellement
+        
+\section{Le résultat actuel}
+
+    \subsection{Ce que Coquille fait et que CoqIde ne fait pas}
+    
+        \subsubsection{Au niveau du code}
+        
+            \begin{itemize}
+                \item Les numéros de ligne.
+                \item Le code folding (replier des lignes de code en une seule, pour une preuve par exemple).
+                \item Des raccourcis plus "classiques", et personnalisables.
+                \item Possibilité de faire "Redo" après des "Undo".
+            \end{itemize}
+            
+        \subsubsection{Au niveau du langage}
+
+            \begin{itemize}
+                \item La gestion de Ltac Debug, avec une interface de parcours des résultats
+                \item Plusieurs instances de Coqtop, une par onglet ouvert
+                \item Un affichage des résultats au choix : classique ou $\LaTeX$-like
+                \item L'action « Next/Previous » d'envoi d'une commande est considérée comme une action comme les autres, donc "Undo/Redo" agit dessus
+            \end{itemize}
+            
+    \subsection{Ce que CoqIde fait et que Coquille ne fait pas (encore)}
+    
+        \subsubsection{Au niveau du code}
+
+            \begin{itemize}
+                \item Lister les actions disponibles par click droit sur une hypothèse ou un but.
+            \end{itemize}
+
+        \subsubsection{Au niveau du langage}
+        
+            \begin{itemize}
+                \item Le Proof Wizard.
+                \item La gestion des Write State / Restore State
+                \item La gestion de l'aide.
+                \item La gestions de la compilation.
+            \end{itemize}
+
+\section{Les objectifs}
+
+Ici on détaille ce qu'on voudrait faire après la fin du projet.
