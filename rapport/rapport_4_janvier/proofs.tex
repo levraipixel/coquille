@@ -31,20 +31,26 @@ Une preuve certaine que cette question possède un intérêt est apportée par l
 L'axiomatique réelle nous permet de prouver les deux formules suivantes :
 $$\begin{array}{llc}
 \mathtt{R\_markov} :& \forall P : \mathbb{N}\rightarrow\mathbb{B}, \neg(\forall n\in\mathbb{N}, P(n)) \Rightarrow \exists n\in\mathbb{N}, \neg P(n) & \text{(MP)}\\
-\mathtt{R\_sequence\_dec} :& \forall P : \mathbb{N}\rightarrow\mathbb{B}, (\forall n\in\mathbb{N}, P(n)) \vee \neg(\forall n\in\mathbb{N}, P(n)) & \text{(CPO)}
+\mathtt{R\_sequence\_dec} :& \forall P : \mathbb{N}\rightarrow\mathbb{B}, (\forall n\in\mathbb{N}, P(n)) \vee \neg(\forall n\in\mathbb{N}, P(n)) & \text{(WLPO)}
 \end{array}$$
 
-Le premier est le principe de Markov, le second est le principe d'omniscience dénombrable. Il est clair que MP n'est que légèrement classique (même si $\not\vdash_{CIC}\text{MP}$, il est constructif au sens algorithmique du terme), alors que CPO est violemment classique (il permet de résoudre le problème de l'arrêt).
+Le premier est le principe de Markov, le second est le principe d'omniscience limité faible. Il est clair que MP n'est que légèrement classique (même si $\not\vdash_{CIC}\text{MP}$, il est constructif au sens algorithmique du terme), alors que WLPO est violemment classique (il permet de résoudre le problème de l'arrêt).
 
-Contrairement à l'article évoqué précédemment, nous avons montré que le principe de Markov était entièrement déductible de l'axiomatique réelle. Plus fort encore, il y a fort à parier qu'il n'y ait pas besoin de la décidabilité de l'égalité sur $\mathbb{R}$ pour le prouver, ce qui sous-tendrait que l'axiomatique de \Coq{} sans cette dernière propriété soit déjà elle-même légèrement classique.
+Contrairement à l'article évoqué précédemment, nous avons montré que le principe de Markov était entièrement déductible de l'axiomatique réelle.
 
-Ce résultat permettrait d'écrire une bibliothèque d'analyse réelle auto-contenue, qui ne ferait pas appel à des axiomes classiques. En effet, la plupart des propriétés analytiques sont séquentielles, et MP et CPO permettent de manipuler les suites classiquement\footnote{Nous n'avons pas encore trouvé de propriété purement analytique sur $\mathbb{R}$ qui ait besoin de plus de MP et CPO pour être prouvée. Évidemment, si on accepte l'axiome du choix, c'est une autre affaire.}.
+Ce résultat permettrait d'écrire une bibliothèque d'analyse réelle auto-contenue, qui ne ferait pas appel à des axiomes classiques. En effet, la plupart des propriétés analytiques sont séquentielles, et MP et WLPO permettent de manipuler les suites classiquement\footnote{Nous n'avons pas encore trouvé de propriété purement analytique sur $\mathbb{R}$ qui ait besoin de plus de MP et WLPO pour être prouvée. Évidemment, si on accepte l'axiome du choix, c'est une autre affaire.}.
+
+Par ailleurs, nous avons tenté de tirer la quintessentielle moëlle classique de l'axiomatique réelle. Hugo Herbelin pensait que l'on pouvait déduire le fait que $\mathbb{R}$ était archimédien des autres axiomes\footnote{L'axiomatique de \Coq{} suppose explicitement que c'est un corps archimédien.}. Il nous a communiqué une preuve intéressante qui montrait que l'on pouvait déduire le tiers exclu faible (WEM) dans \coqcode{Type} à partir de l'axiomatique des réels :
+
+$$\mathtt{Reals}\vdash\forall A : \mathtt{Prop}, \{\neg A\} + \{\neg\neg A\}$$
+
+L'axiome archimédien et MP sont de fait équivalents\footnote{Nous en avons une preuve.}. Nous avons des indices qui nous laissent penser que cet axiome ne peut pas être réduit aux autres. D'abord, parce que MP et WLPO sont complètement orthogonaux en logique intuitionniste. Ensuite parce que WEM a beau impliquer WLPO, WEM n'implique pas non plus MP. Or l'argument utilisé pour prouver WEM à l'aide de l'axiomatique des réels est peu propice à la généralisation pour MP. En effet, de quelque bord qu'on l'attaque, la technique employée ne donne que des résultats par double négation, ce qui est fâcheux pour MP (on veut justement éliminer cette double négation).
+
+Évidemment, nous n'avons pas de modèle pour prouver cela, mais nous conjecturons que l'on ne peut pas se passer de l'axiome archimédien.
 
 \subsubsection{Développements éventuels}
 
-D'une part, il serait intéressant de montrer qu'effectivement, l'axiome de trichotomie n'est pas requis pour déduire le principe de Markov. Cela serait un signe de la non-atomicité de l'axiomatique réelle de \Coq{}.
-
-D'autre part, l'idée de bibliothèque réelle auto-contenue pourrait être complètement implémentée, et cela en expurgeant toutes les références au module \coqcode{Classical} de la bibliothèque \coqcode{Reals}. Cependant, la tâche risque de s'avérer longue pour un résultat à l'intérêt douteux.
+L'idée de bibliothèque réelle auto-contenue pourrait être complètement implémentée, et cela en expurgeant toutes les références au module \coqcode{Classical} de la bibliothèque \coqcode{Reals}. Cependant, la tâche risque de s'avérer longue pour un résultat à l'intérêt douteux.
 
 \section{Analyse}
 
