@@ -1,166 +1,172 @@
 \section{Contexte initial}
 
-    \subsection{État de l'art : coqide}
+\subsection{État de l'art : \CoqIde{}}
 
-        \subsubsection{Pas vraiment user-friendly}
+\subsubsection{Pas vraiment user-friendly}
 
-            Ici on explique pourquoi on aime pas coder dans coqide.
-			%(* dédicace pour PIM *)
-			
-        \subsubsection{Très opaque}
+%Je m'en occupe d'ici 5 minutes...
 
-		En effet, le code de CoqIde n'est pas très accessible, sa structure pas évidente, et il aurait probablement fallu plus de temps à le comprendre qu'à le développer. Plus exactement :
-		\begin{itemize}
-			\item Il n'y a aucune information sur le code, à part une maigre trame de structure dans la doc du code source, mais cela reste très léger
-			\item Peu modulaire : Il n'y a aucune séparation entre CoqIde et le noyau de coq, et CoqIde n'a aps de structure propre indépendante de coq. (cf. Les détails de la discussion avec Vincent Gross).	
-		\end{itemize}
-		
-	\subsection{Les besoins du projet Coquille}
+\subsubsection{Très opaque}
 
-		Mise à part la nécessité d'un IDE pour Coq, qui reprennent donc les principales fonctionnalités de CoqIde à savoir l'édition et coloration, l'envoi d'instructions à CoqTop étape par étape et la récupération des réqultats ou messages d'erreurs, nous sommes restés à l'écoute des attentes des autres Groupes de Travail :
-        
-        \subsubsection{WP Apprentissage}
+En effet, le code de \CoqIde{} n'est pas très accessible, sa structure pas évidente, et il aurait probablement fallu plus de temps à le comprendre qu'à le développer. Plus exactement :
 
-        Deux besoins principaux concernaient l'apprentissage :
-		\begin{itemize}
-			\item La possibilité pour l'utilisateut de donner une preuve 'type' ou 'classique' au programme d'apprentissage, qui se chargera lui de parser le code et de la mémoriser. En somme, cela revient à un bouton "Apprendre cette preuve" qui pourrait s'appliquer à une sélection de code, ou à un théorème en particulier.
-			\item D'offrir à l'utilisateut une proposition de preuve ou de tactique, par un bouton "Propositions" par exemples, qui s'en suivrait par une liste de tactiques disponibles et adéquates.
-			\item On pourrait envisager des retours à l'apprentissage pour dire que la proposition a été fructueuse ou que au contraire, elle est complètement absurde.
-		\end{itemize}
-			
-		\subsubsection{WP Preuves / Tactiques}
-			% On peut supprimer si on veut
-			Ce groupe a fourni des librairies et des tactiques sious forme de fichiers coq directement utilisables par des commandes coq, donc il n'y avait a priori aucune attente de la part de ce WP.
+\begin{itemize}
+  \item Il n'y a aucune information sur le code, à part une maigre trame de structure dans la doc du code source, mais cela reste très léger
+  \item Peu modulaire : il n'y a aucune séparation entre \CoqIde{} et le noyau de \Coq{}, et \CoqIde{} n'a pas de structure propre indépendante de \Coq{}. (cf. Les détails de la discussion avec Vincent Gross).
+\end{itemize}
+    
+\subsection{Les besoins du projet \coquille}
 
-    \subsection{Que faire...}
+Mise à part la nécessité d'un IDE pour \Coq{}, qui reprennent donc les principales fonctionnalités de \CoqIde{} à savoir l'édition et coloration, l'envoi d'instructions à CoqTop étape par étape et la récupération des réqultats ou messages d'erreurs, nous sommes restés à l'écoute des attentes des autres groupes de travail :
 
-        \subsubsection{Tenter de modifier coqide ?}
+\subsubsection{WP Apprentissage}
 
-            Ce n'était clairement pas envisageable. En effet, non seulement le code de CoqIde est complètement opaque, il aurait fallu en comprendre la structure, les subtilités, gérer le dialogue avec coq sans modularité, mais en plus cela ne nous semblait pas très formateur de reprendre son code. On aurait pu certes reprendre CoqIde et le structurer d'avantage, mais cela aurait été monstrueusement long.
-			
-        \subsubsection{Créer des plugins pour les éditeurs classiques ?}
+Deux besoins principaux concernaient l'apprentissage :
+\begin{itemize}
+  \item La possibilité pour l'utilisateur de donner une preuve type au programme d'apprentissage, qui se chargera lui de parser le code et de la mémoriser. En somme, cela revient à un bouton « Apprendre cette preuve » qui pourrait s'appliquer à une sélection de code, ou à un théorème en particulier.
+  \item D'offrir à l'utilisateur une proposition de preuve ou de tactique, par un bouton « Propositions » par exemples, qui s'en suivrait par une liste de tactiques disponibles et adéquates.
+  \item On pourrait envisager des retours à l'apprentissage pour dire que la proposition a été fructueuse ou que au contraire, elle est complètement absurde.
+\end{itemize}
+      
+\subsubsection{WP Preuves / Tactiques}
+% On peut supprimer si on veut
+Ce groupe a fourni des librairies et des tactiques sous forme de fichiers \Coq{} directement utilisables par des commandes \Coq{}, donc il n'y avait a priori aucune attente de la part de ce WP.
 
-			Mise à part CoqIde, il n'y a pas d'éditeur dédié à Coq. En admettant que l'on eût fait un plugin pour un éditeur classique (netbeans, code::blocks), il aurait été dûr de dialoguer avec CoqTop, et un plugin ne permet pas de faire un interpréteur. Or, il nous semble vital d'avoir un interpréteur à disposition quand l'on code en Coq.
-			
-        \subsubsection{Coder un IDE from scratch ?}
-        
-			C'est l'alternative que nous avons choisie. 
-			Tout d'abord, il sera plus facile de bien structurer le code et de séparer le dialogue avec Coq. 
-			Cela permet d'intégrer facilement la communication avec les fonctionnalités proposés par l'apprentissage.
-			De même gérer des détails comme la mise en page, la coloration, le "folding" de preuves, nous paraît plus facile si on reprend l'IDE à zéro.
-			
-			Enfin, dans le cadre d'un Projet, il est plus formateur de coder à zéro un éditeur et de se poser les questions de comment on le code ou on le structure dans un but précis plutôt que de perdre du temps à modifier un éditeur que nous ne comprenons pas.
+\subsection{Que faire...}
+
+\subsubsection{Tenter de modifier \CoqIde{} ?}
+
+Ce n'était clairement pas envisageable. En effet, non seulement le code de \CoqIde{} est complètement opaque, il aurait fallu en comprendre la structure, les subtilités, gérer le dialogue avec \Coq{} sans modularité, mais en plus cela ne nous semblait pas très formateur de reprendre son code. On aurait pu certes reprendre \CoqIde{} et le structurer d'avantage, mais cela aurait été monstrueusement long.
+
+\subsubsection{Créer des plugins pour les éditeurs classiques ?}
+
+Mise à part \CoqIde, il n'y a pas d'éditeur dédié à \Coq{}. En admettant que l'on eût fait un plugin pour un éditeur classique (netbeans, code::blocks), il aurait été dur de dialoguer avec CoqTop, et un plugin ne permet pas de faire un interpréteur. Or, il nous semble vital d'avoir un interpréteur à disposition quand l'on code en \Coq{}.
+
+\subsubsection{Coder un IDE from scratch ?}
+
+C'est l'alternative que nous avons choisie.
+Tout d'abord, il sera plus facile de bien structurer le code et de séparer le dialogue avec \Coq{}. 
+Cela permet d'intégrer facilement la communication avec les fonctionnalités proposés par l'apprentissage.
+De même il nous paraît plus facile de gérer des détails comme la mise en page, la coloration et le pliage de preuves si on reprend l'IDE à zéro.
+
+Enfin, dans le cadre d'un projet, il est plus formateur de coder à zéro un éditeur et de se poser les questions de comment on le code ou on le structure dans un but précis plutôt que de perdre du temps à modifier un éditeur que nous ne comprenons pas.
 
 \section{Quelques choix à faire}
 
-    \subsection{Le Langage utilisé}
+\subsection{Le Langage utilisé}
+
+Après réflexions, il a été décidé d'utiliser le C++.
+
+Dans les premières semaines du Projet, deux parties du WP IDE se sont affrontées en proposant un mini-éditeur codé soit en Java avec Swing soit en C++ avec Qt. 
+
+Au cahier des charges, ils devaient proposer : 
+
+\begin{itemize}
+  \item l'édition de texte avec les menus basiques (copier, coller etc) ;
+  \item la coloration syntaxique (désactivable) des parenthèses et de certains mots clés ;
+  \item un bouton Insertion qui insère du texte après le curseur ;
+  \item un bouton pour sortir l'intégralité du texte dans une nouvelle fenêtre.
+\end{itemize}
+
+Après comparaison sur des critères prédéfinis, il en est ressorti que les deux langages sont très similaires tant en rapidité de codage (ils ont une API pour dessiner les fenêtres chacun par exemple), en structure, et sont assez abordables.
+Les deux mini-IDE étaient équivalents à la différence que celui en C++ était plus rapide et montrait plus de flexibilité dans la coloration syntaxique. Le mini-IDE en java utilisait des bibliothèques annexes (JLex) pour la coloration syntaxique.
     
-		Après réflexions, il a été décidé d'utiliser le C++.
-		
-		Dans les premières semaines du Projet, deux parties du WP IDE se sont affrontées en proposant un mini-éditeur codé soit en Java avec Swing soit en C++ avec Qt. 
-		Au cahier des charges, ils devaient proposer : 
-		\begin{itemize}
-			\item l'édition de texte avec les menus basiques (copier, coller etc), 
-			\item la coloration syntaxique (désactivable) des parenthèses et de certains mots clés , 
-			\item un bouton "insertion" qui insère du texte après le curseur 
-			\item un bouton pour sortir l'intégralité du texte dans une nouvelle fenêtre.
-		\end{itemize}
-		Après comparaison sur des critères prédéfinis, il en est ressorti que les deux langages sont très similaires tant en rapidité de codage (ils ont une API pour dessiner les fenêtres chacun par exemple), en structure, et sont assez abordables.
-		Les deux mini-IDE étaient équivalents à la différence que celui en C++ était plus rapide et montrait plus de flexibilité dans la coloration syntaxique. Le mini-IDE en java utilisait des bibliothèques annexes (JLex) pour la coloration syntaxique.
-		
-		Nous avons donc choisi (à peu de différences) le C++. S'ajoutait le fait que parmi nous plus de personnes étaient compétents en C++ et novices en Java.
+Nous avons donc choisi (à peu de différences) le C++. S'ajoutait le fait que parmi nous plus de personnes étaient compétents en C++ et novices en Java.
+
+\subsection{Les Bibliothèques utilisées}
+
+\begin{itemize} 
+  \item Qt nous a séduits pour la gestion des fenêtres.
+    En effet, QtCreator facilite amplement la création de fenêtres, le code Qt est très clair, propre et structuré; le slots sont gérés proprements en comparaison avec GTK par exemple.
+    D'autre part, la documentation est vraiment très abordables de sorte que l'on a appris très rapidement sur le tas à se servir de Qt.
     
-    \subsection{Les Bibliothèques utilisées}
+  \item QCodeEdit, pour gérer les pliages de paragraphes dans le texte, par exemple pour masquer les preuves des théorèmes, entre \coqcode{Proof} et \coqcode{Qed}.
+  
+  \item QTermWidget, pour inclure un terminal dans l'IDE.  
+\end{itemize}
+
+\subsection{Le Dialogue avec \Coq{}}
     
-		\begin{itemize} 
-			\item Qt nous a séduits pour la gestion des fenêtres.
-				En effet, QtCreator facilite amplement la création de fenêtres, le code Qt est très clair, propre et structuré; le slots sont gérés proprements en comparaison avec gtk par exemple.
-				D'autre part, la documentation est vraiment très abordables de sorte que l'on a appris très rapidement sur le tas à se servir de Qt.
-				
-			\item QCodeEdit, pour gérer les "folding" de paragraphes dans le texte, par exemple pour masquer les preuves des théorèmes, entre Proof et Qed.
-			
-			\item QTermWidget, pour inclure un terminal dans l'IDE.	
-		\end{itemize}
-		
-    \subsection{Le Dialogue avec Coq}
-    
-		Le choix s'est tout simplement restreint à CoqTop. 
-		% Yann tu veux en parler plus bas ?
-		En effet, suite à des échanges avec Vincent Gross (Inria), il en ressort que Coq n'a pas d'(autre) API, et que c'est en particulier son projet. À l'entendre, il nous est paru inabordable de reprogrammer coqtop. 
+Le choix s'est tout simplement restreint à CoqTop. 
+% Yann tu veux en parler plus bas ?
+En effet, suite à des échanges avec Vincent Gross (Inria), il en ressort que \Coq{} n'a pas d'(autre) API, et que c'est en particulier son projet. À l'entendre, il nous est paru inabordable de reprogrammer coqtop. 
         
 \section{Les problèmes rencontrés}
 
-    \subsection{Au niveau du langage}
+\subsection{Au niveau du langage}
+
+Qt et le C++ n'obnt pas posé de problèmes majeurs. Nous sommes déjà habitués à coder en C++ et la documentation de Qt comme QtDesigner sont très abordables.
     
-		Qt et le C++ n'obnt pas posé de problèmes majeurs. Nous sommes déjà habitués à coder en C++ et la documentation de Qt comme QtDesigner sont très abordables.
+\subsection{Au niveau des bibliothèques}
+
+Nous avons eu quelques petits problèmes de codage en utilisant la librairie QCodeEdit, et pour lesquels des échanges avec Hugues Luc Bruant (ENSIMAG) nous furent utiles.
+
+%Yann ?
+    % On peut parler du problème de coloriage du texte qui nous oblige à ne pas colorier le tout dernier point.
+%   -> faut qu'on détaille pourquoi (j'en sais rien) ou juste dire ça ça suffit ?
+    % Echanges avec vincent Gross 
+
+% PM ?
+-> Côté licence on en parle ?
+
+\subsection{Au niveau du dialogue avec \Coq{}}
+
+Ce furent les principaux problèmes. Parmi ceux qui nous ont pris le plus de temps :
+
+\begin{itemize}
+  \item La discrimination des erreurs : dans CoqTop, StdErr ne reçoit que le prompt tandis que StdOut reçoit les erreurs et le prompt. 
+  \item La non-réponse de CoqTop (ex : pour \coqcode{Require} et \coqcode{Proof}). On a choisi d'attendre 5 secondes et on admet que s'il n'y a pas d'erreur, la commande a été acceptée. On ne peut pas exclure cependant une librairie qui mettrait plus de 5 secondes à se charger, et pour laquelle on renverrait systématiquement une erreur. La méthode d'attente est peu élégante, mais nous n'avons pas trouvé mieux.
+  \item Revenir en arrière : 
+\end{itemize}
+
+% Yann ?
+% Un véritable casse-tête... Le seul PB non résolu actuellement
         
-    \subsection{Au niveau des bibliothèques}
-    
-        Nous avons eu quelques petits problèmes de codage en utilisant la librairie QCodeEdit, et pour lesquels des échanges avec Hugues Luc Bruant (ENSIMAG) nous furent utiles.
-		
-		%Yann ?
-        % On peut parler du problème de coloriage du texte qui nous oblige à ne pas colorier le tout dernier point.
-		% 	-> faut qu'on détaille pourquoi (j'en sais rien) ou juste dire ça ça suffit ?
-        % Echanges avec vincent Gross 
-		
-		% PM ?
-		-> Côté licence on en parle ?
-		
-    \subsection{Au niveau du dialogue avec Coq}
-    
-        Ce furent les principaux problèmes. Parmi ceux qui nous ont pris le plus de temps :
-        - La discrimination des erreurs : dans CoqTop, StdErr ne reçoit que le prompt tandis que StdOut reçoit les erreurs et le prompt. 
-        - La non-réponse de CoqTop (ex : pour \coqcode{Require} et \coqcode{Proof}). On a choisi d'attendre 5 secondes et on admet que s'il n'y a pas d'erreur, la commande a été acceptée. On ne peut pas exclure cependant une librairie qui mettrait plus de 5 secondes à se charger, et pour laquelle on renverrait systématiquement une erreur. La méthode d'attente est peu élégante, mais nous n'avons pas trouvé mieux.
-        - Revenir en arrière : 
-		
-		% Yann ?
-		% Un véritable casse-tête... Le seul PB non résolu actuellement
-				
 \section{Le résultat actuel}
 
-    \subsection{Ce que Coquille fait et que CoqIde ne fait pas !}
-    
-        \subsubsection{Au niveau du code}
-        
-            \begin{itemize}
-                \item Marquer les numéros de ligne.
-                \item Le code folding (replier des lignes de code en une seule, pour les blocs {\coqcode{Proof ... Qed}} par exemple).
-                \item Des raccourcis clavier plus "classiques", et personnalisables.
-                \item La possibilité de faire des "Redo" après des "Undo".
-            \end{itemize}
-            
-        \subsubsection{Au niveau du langage}
+\subsection{Ce que \coquille{} fait et que \CoqIde{} ne fait pas !}
 
-            \begin{itemize}
-                \item La gestion de "Ltac Debug". C'est un mode que nous avons mis au point et qui permet de voir en détail l'exécution d'une tactique en coq, avec une interface de parcours des résultats 
-                \item Gérer plusieurs instances de Coqtop, une par onglet ouvert;
-                \item Un affichage des résultats en version classique ou $\LaTeX$-like
-                \item L'action « Next/Previous » d'envoi d'une commande est considérée comme une action comme les autres, donc "Undo/Redo" peut agir sur les Next/Previous.
-            \end{itemize}	
-            
-    \subsection{Ce que CoqIde fait et que Coquille ne fait pas (encore)}
-    
-        \subsubsection{Au niveau du code}
+\subsubsection{Au niveau du code}
 
-            \begin{itemize}
-                \item Lister les actions disponibles par click droit sur une hypothèse ou un but.
-            \end{itemize}
+\begin{itemize}
+    \item Marquer les numéros de ligne.
+    \item Le code folding (replier des lignes de code en une seule, pour les blocs {\coqcode{Proof ... Qed}} par exemple).
+    \item Des raccourcis clavier plus classiques, et personnalisables.
+    \item La possibilité de faire des \coqcode{Redo} après des \coqcode{Undo}.
+\end{itemize}
 
-        \subsubsection{Au niveau du langage}
-        
-            \begin{itemize}
-                \item Le Proof Wizard.
-                \item La gestion des Write State / Restore State. En théorie, la commande "write State" est censée sauvegarder l'état de l'interpréteur (variables, commandes envoyées, etc), tandis que "Restore State" est censé restauree cet état.
-						En pratique, "Restore State" ne marche pas dans coqtop, ce qui nous empêche de l'utiliser.
-                \item La gestion de l'aide.
-                \item La gestions de la compilation : CoqIde permet de compiler un module sans passer par ligne de commande.
-            \end{itemize}
+\subsubsection{Au niveau du langage}
+
+\begin{itemize}
+    \item La gestion de \coqcode{Ltac Debug}. C'est un mode que nous avons mis au point et qui permet de voir en détail l'exécution d'une tactique en \Coq{}, avec une interface de parcours des résultats 
+    \item Gérer plusieurs instances de Coqtop, une par onglet ouvert;
+    \item Un affichage des résultats en version classique ou $\LaTeX$-like
+    \item L'action Next/Previous d'envoi d'une commande est considérée comme une action comme les autres, donc Undo/Redo peut agir sur les Next/Previous.
+\end{itemize}  
+
+\subsection{Ce que \CoqIde{} fait et que \coquille{} ne fait pas (encore)}
+
+\subsubsection{Au niveau du code}
+
+\begin{itemize}
+    \item Lister les actions disponibles par click droit sur une hypothèse ou un but.
+\end{itemize}
+
+\subsubsection{Au niveau du langage}
+
+\begin{itemize}
+    \item Le Proof Wizard.
+    \item La gestion des \coqcode{Write State} et \coqcode{Restore State}. En théorie, la commande \coqcode{Write State} est censée sauvegarder l'état de l'interpréteur (variables, commandes envoyées, etc), tandis que \coqcode{Restore State} est censée restaurer cet état.
+En pratique, \coqcode{Restore State} ne marche pas dans coqtop, ce qui nous empêche de l'utiliser.
+    \item La gestion de l'aide.
+    \item La gestions de la compilation : \CoqIde{} permet de compiler un module sans passer par ligne de commande.
+\end{itemize}
 
 \section{Les objectifs}
 
-La majorité des objectifs que le WP IDE s'étaient fixés à l'origine ont été largement atteints puisqu'on dispose d'un IDE fonctionnel qui reprend CoqIde avec plus de fonctionnalités et qui est plus pratique à utiliser dans l'optique du projet.
+La majorité des objectifs que le WP IDE s'étaient fixés à l'origine ont été largement atteints puisqu'on dispose d'un IDE fonctionnel qui reprend \CoqIde{} avec plus de fonctionnalités et qui est plus pratique à utiliser dans l'optique du projet.
 
-Nous avons déjà mis Coquille sous forme de paquets, il nous reste donc principalement à distribuer et diffuser Coquille dans la communauté Coq et d'y inclure un petit manuel d'utilisation. Un manuel programmeur basique est déjà mis à disposition.
+Nous avons déjà mis \coquille{} sous forme de paquets, il nous reste donc principalement à distribuer et diffuser \coquille{} dans la communauté \Coq{} et d'y inclure un petit manuel d'utilisation. Un manuel programmeur basique est déjà mis à disposition.
 
 
 
