@@ -4,7 +4,21 @@
 
 \subsubsection{Pas vraiment \emph{user-friendly}}
 
-%Je m'en occupe d'ici 5 minutes...
+\CoqIde{} possède de nombreux défauts mineurs qui n'apparaissent pas au premier coup d'\oe{}il, mais après une utilisation fréquente de ce logiciel. On donne ici une liste de tels détails :
+
+\begin{itemize}
+  \item L'impossibilité de fermer une fenêtre active : il faut sélectionner un autre onglet et effectuer une validation de code ;
+  \item L'impossibilité d'ouvrir un fichier temporaire : il faut obligatoirement sauvegarder le nouveau fichier ;
+  \item Une gestion calamiteuse de la coloration des fonctions de recherche et de remplacement : la coloration qui persiste ;
+  \item L'impossibilité de copier-coller depuis un autre cadre que celui d'édition ;
+  \item L'absence de coloration des délimiteurs ouvrants et fermants correspondants (parenthèses, etc.) ;
+  \item Le cruel manque d'outils complémentaires que tout IDE devrait proposer : console, bibliothèque, etc. ;
+  \item Divers bugs de l'éditeur (liés au copier-coller) ;
+  \item Des bugs d'affichage incompréhensibles, sans doutes liés au \emph{binding} OCaml-GTK ;
+  \item Le manque de personnalisation\footnote{Tradition héritée de la bibliothèque graphique de nazis sur laquelle repose \CoqIde{}.} de l'interface\footnote{Ah, cette couleur, cette couleur !}.
+\end{itemize}
+
+On peut en outre constater d'autre défauts de conceptions plus importants, tels qu'une gestion des \emph{thread} catastrophique\footnote{\coqtop{} et \CoqIde{} sont si intimement liés que tout plantage de l'un induit un plantage de l'autre...}, et ce qui en découle, l'impossibilité de valider plusieurs documents à la fois.
 
 \subsubsection{Très opaque}
 
@@ -115,7 +129,7 @@ Nous avons eu quelques petits problèmes de codage en utilisant la librairie QCo
 Ce furent les principaux problèmes. Parmi ceux qui nous ont pris le plus de temps :
 
 \begin{itemize}
-  \item La discrimination des erreurs : dans \coqtop{}, StdErr ne reçoit que le prompt tandis que StdOut reçoit les erreurs et le prompt. 
+  \item La discrimination des erreurs : dans \coqtop{}, \code{stderr} ne reçoit que le prompt tandis que \code{stdout} reçoit les erreurs et le prompt. 
   \item La non-réponse de \coqtop{} (ex : pour \coqcode{Require} et \coqcode{Proof}). On a choisi d'attendre 5 secondes et on admet que s'il n'y a pas d'erreur, la commande a été acceptée. On ne peut pas exclure cependant une librairie qui mettrait plus de 5 secondes à se charger, et pour laquelle on renverrait systématiquement une erreur. La méthode d'attente est peu élégante, mais nous n'avons pas trouvé mieux.
   \item Revenir en arrière : 
 \end{itemize}
@@ -150,7 +164,7 @@ Ce furent les principaux problèmes. Parmi ceux qui nous ont pris le plus de tem
 \subsubsection{Au niveau du code}
 
 \begin{itemize}
-    \item Lister les actions disponibles par click droit sur une hypothèse ou un but.
+    \item Lister les actions disponibles par clic droit sur une hypothèse ou un but.
 \end{itemize}
 
 \subsubsection{Au niveau du langage}
