@@ -4,7 +4,7 @@
 
 \subsubsection{Motivations}
 
-Le résultat d'indénombrabilité de $\mathbb{R}$ est un résultat fondamental en théorie des ensembles. À ce qu'il semble, il n'a toujours pas été démontré en Coq avec l'axiomatique classique des réels\footnote{Cependant, il en existe une preuve dans C-Corn.}. Quoi qu'il n'ait pas d'intérêt en lui-même au sein d'une bibliothèque d'analyse réelle, ce théorème mérite clairement de figurer parmi les résultats de \coqcode{Rlogic}.
+Le résultat d'indénombrabilité de $\mathbb{R}$ est un résultat fondamental en théorie des ensembles. À ce qu'il semble, il n'a toujours pas été démontré en \Coq{} avec l'axiomatique classique des réels\footnote{Cependant, il en existe une preuve dans C-Corn.}. Quoi qu'il n'ait pas d'intérêt en lui-même au sein d'une bibliothèque d'analyse réelle, ce théorème mérite clairement de figurer parmi les résultats de \coqcode{Rlogic}.
 
 \subsubsection{Énoncé et preuve}
 
@@ -14,17 +14,17 @@ $$\begin{array}{ll}
 \mathtt{R\_uncountable} :& \forall f : \mathbb{N}\rightarrow\mathbb{R}, \{r\mid\forall n\in\mathbb{N}, r \neq f(n)\}\neq\emptyset
 \end{array}$$
 
-La preuve n'utilise pas la version générale de l'argument diagonal de Cantor, beaucoup trop dur à formaliser en Coq, mais utilise la première preuve de ce résultat que Cantor ait fourni. Elle repose sur un argument purement topologique, à savoir la complétude de $\mathbb{R}$.
+La preuve n'utilise pas la version générale de l'argument diagonal de Cantor, beaucoup trop dur à formaliser en \Coq{}, mais utilise la première preuve de ce résultat que Cantor ait fourni. Elle repose sur un argument purement topologique, à savoir la complétude de $\mathbb{R}$.
 
 \subsection{Implications classiques de l'axiomatique réelle (\coqcode{Rmarkov})}
 
 \subsubsection{Motivations}
 
-L'axiomatique réelle de Coq est \emph{classique}, en ce sens où elle permet de prouver des propriétés que la logique intuitionniste (et par là même Coq dans le contexte vide) ne permet pas. On ignore encore exactement quelles sont les limites de l'expressivité classique conférée par cette axiomatique.
+L'axiomatique réelle de \Coq{} est \emph{classique}, en ce sens où elle permet de prouver des propriétés que la logique intuitionniste (et par là même \Coq{} dans le contexte vide) ne permet pas. On ignore encore exactement quelles sont les limites de l'expressivité classique conférée par cette axiomatique.
 
 D'un point de vue logique, ceci nous permet de quantifier ce pouvoir expressif, ce qui est toujours intéressant. D'un point de vue pratique, cela nous permet de tirer des ponts entre les différentes représen\-tations des réels, qu'elles soient constructives ou non.
 
-Une preuve certaine que cette question possède un intérêt est apportée par le fait qu'une partie de notre démonstration a été faite avant nous par des chercheurs il y a quelques mois, et sert de base à un développement très intéressant entre C-Corn et Coq.
+Une preuve certaine que cette question possède un intérêt est apportée par le fait qu'une partie de notre démonstration a été faite avant nous par des chercheurs il y a quelques mois, et sert de base à un développement très intéressant entre C-Corn et \Coq{}.
 
 \subsubsection{Énoncés}
 
@@ -36,13 +36,13 @@ $$\begin{array}{llc}
 
 Le premier est le principe de Markov, le second est le principe d'omniscience dénombrable. Il est clair que MP n'est que légèrement classique (même si $\not\vdash_{CIC}\text{MP}$, il est constructif au sens algorithmique du terme), alors que CPO est violemment classique (il permet de résoudre le problème de l'arrêt).
 
-Contrairement à l'article évoqué précédemment, nous avons montré que le principe de Markov était entièrement déductible de l'axiomatique réelle. Plus fort encore, il y a fort à parier qu'il n'y ait pas besoin de la décidabilité de l'égalité sur $\mathbb{R}$ pour le prouver, ce qui sous-tendrait que l'axiomatique de Coq sans cette dernière propriété soit déjà elle-même légèrement classique.
+Contrairement à l'article évoqué précédemment, nous avons montré que le principe de Markov était entièrement déductible de l'axiomatique réelle. Plus fort encore, il y a fort à parier qu'il n'y ait pas besoin de la décidabilité de l'égalité sur $\mathbb{R}$ pour le prouver, ce qui sous-tendrait que l'axiomatique de \Coq{} sans cette dernière propriété soit déjà elle-même légèrement classique.
 
 Ce résultat permettrait d'écrire une bibliothèque d'analyse réelle auto-contenue, qui ne ferait pas appel à des axiomes classiques. En effet, la plupart des propriétés analytiques sont séquentielles, et MP et CPO permettent de manipuler les suites classiquement\footnote{Nous n'avons pas encore trouvé de propriété purement analytique sur $\mathbb{R}$ qui ait besoin de plus de MP et CPO pour être prouvée. Évidemment, si on accepte l'axiome du choix, c'est une autre affaire.}.
 
 \subsubsection{Développements éventuels}
 
-D'une part, il serait intéressant de montrer qu'effectivement, l'axiome de trichotomie n'est pas requis pour déduire le principe de Markov. Cela serait un signe de la non-atomicité de l'axiomatique réelle de Coq.
+D'une part, il serait intéressant de montrer qu'effectivement, l'axiome de trichotomie n'est pas requis pour déduire le principe de Markov. Cela serait un signe de la non-atomicité de l'axiomatique réelle de \Coq{}.
 
 D'autre part, l'idée de bibliothèque réelle auto-contenue pourrait être complètement implémentée, et cela en expurgeant toutes les références au module \coqcode{Classical} de la bibliothèque \coqcode{Reals}. Cependant, la tâche risque de s'avérer longue pour un résultat à l'intérêt douteux.
 
@@ -52,7 +52,7 @@ D'autre part, l'idée de bibliothèque réelle auto-contenue pourrait être comp
 
 \subsubsection{Motivations}
 
-Les suites sont parmi les outils de base de l'analyse réelle, et le moins qu'on puisse dire, c'est que la bibliothèque standard de Coq n'est ni très étendue dans ce domaine, ni très cohérente\footnote{Comme à peu près tout \coqcode{stdlib}.}. Il y a donc une masse de travail non-négligeable.
+Les suites sont parmi les outils de base de l'analyse réelle, et le moins qu'on puisse dire, c'est que la bibliothèque standard de \Coq{} n'est ni très étendue dans ce domaine, ni très cohérente\footnote{Comme à peu près tout \coqcode{stdlib}.}. Il y a donc une masse de travail non-négligeable.
 
 Pour ne pas reproduire les défauts de la bibliothèque standard, nous nous sommes entendus pour suivre à la lettre les conventions de nommages recommandées dans la proposition de Hugo Herbelin\cite{naming_conventions}, même si cela s'avère parfois fastidieux. Nous avons également réparti les lemmes en différentes sous-bibliothèques thématiques afin de garantir une consultation aisée et de rendre possible une utilisation modulaire.
 
@@ -240,7 +240,7 @@ Cette bibliothèque est la petite s\oe{}ur de la bibliothèque sur les suites à
 
 \subsubsection{Motivations}
 
-Les séries entières sont la base de la trigonométrie telle qu'elle est faite en Coq. Le programme de classes préparatoires se base aussi largement sur ce genre de série. Il apparait donc essentiel de définir les séries entières en Coq.
+Les séries entières sont la base de la trigonométrie telle qu'elle est faite en \Coq{}. Le programme de classes préparatoires se base aussi largement sur ce genre de série. Il apparait donc essentiel de définir les séries entières en \Coq{}.
 
 \subsubsection{Description}
 
@@ -283,7 +283,7 @@ Pour tout nombre complexe $z$ et tout entier $n$ supérieur à $0$, il existe un
 
 \subsubsection{Motivations}
 
-L'approche standard de définition des objets mathématiques dans Coq est basée sur la définition constructive d'éléments moins généraux vers d'autres plus généraux. Les principes constructifs justifient cette approche. Cependant certains objets ne peuvent être construits, par exemple dans \coqcode{Reals}, le fait que $\mathbb{R}$ est un corps n'est pas une propriété mais un axiome.
+L'approche standard de définition des objets mathématiques dans \Coq{} est basée sur la définition constructive d'éléments moins généraux vers d'autres plus généraux. Les principes constructifs justifient cette approche. Cependant certains objets ne peuvent être construits, par exemple dans \coqcode{Reals}, le fait que $\mathbb{R}$ est un corps n'est pas une propriété mais un axiome.
 
 Ainsi pour faciliter la définition d'objets plus généraux, on peut tenter de définir les objets les plus généraux dans un premier temps. Un besoin suggéré par la manipulation des suites, séries ou même des complexes est une homogénéisation des tactiques pour simplifier les expressions qui supportent des propriétés de groupe, d'anneau ou encore d'espace vectoriel. On cherche à généraliser la notion d'espace.
 
