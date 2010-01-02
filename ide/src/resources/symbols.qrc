@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/" >
+        <file>symbols/int.png</file>
+        <file>symbols/sum.png</file>
+    </qresource>
+</RCC>
