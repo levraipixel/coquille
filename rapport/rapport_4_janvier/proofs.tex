@@ -20,11 +20,11 @@ La preuve n'utilise pas la version générale de l'argument diagonal de Cantor, 
 
 \subsubsection{Motivations}
 
-L'axiomatique réelle de \Coq{} est \emph{classique}, en ce sens où elle permet de prouver des propriétés que la logique intuitionniste (et par là même \Coq{} dans le contexte vide) ne permet pas. On ignore encore exactement quelles sont les limites de l'expressivité classique conférée par cette axiomatique.
+L'axiomatique réelle de \Coq{} est \emph{classique}, en ce sens où elle permet de prouver des propriétés que la logique intuitionniste (et par là même \Coq{} dans le contexte vide) ne permet pas. On ignore encore exactement quelles sont les limites de l'expressivité classique conférée par cette axiomatique, mais on peut d'ores et déjà la comparer à une axiomatique intuitionniste telle que décrite dans~\cite{Ciaffaglione00}.
 
 D'un point de vue logique, ceci nous permet de quantifier ce pouvoir expressif, ce qui est toujours intéressant. D'un point de vue pratique, cela nous permet de tirer des ponts entre les différentes représen\-tations des réels, qu'elles soient constructives ou non.
 
-Une preuve certaine que cette question possède un intérêt est apportée par le fait qu'une partie de notre démonstration a été faite avant nous par des chercheurs il y a quelques mois, et sert de base à un développement très intéressant entre C-Corn et \Coq{}.
+Une preuve certaine que cette question possède un intérêt est apportée par le fait qu'une partie de notre démonstration a été faite avant nous par des chercheurs il y a quelques mois, et sert de base à un développement très intéressant entre C-Corn et \Coq{}~\cite{DBLP08}.
 
 \subsubsection{Énoncés}
 
@@ -46,7 +46,7 @@ $$\mathtt{Reals}\vdash\forall A : \mathtt{Prop}, \{\neg A\} + \{\neg\neg A\}$$
 
 L'axiome archimédien et MP sont de fait équivalents\footnote{Nous en avons une preuve.}. Nous avons des indices qui nous laissent penser que cet axiome ne peut pas être réduit aux autres. D'abord, parce que MP et WLPO sont complètement orthogonaux en logique intuitionniste. Ensuite parce que WEM a beau impliquer WLPO, WEM n'implique pas non plus MP. Or l'argument utilisé pour prouver WEM à l'aide de l'axiomatique des réels est peu propice à la généralisation pour MP. En effet, de quelque bord qu'on l'attaque, la technique employée ne donne que des résultats par double négation, ce qui est fâcheux pour MP (on veut justement éliminer cette double négation).
 
-Évidemment, nous n'avons pas de modèle pour prouver cela, mais nous conjecturons que l'on ne peut pas se passer de l'axiome archimédien.
+Évidemment, nous n'avons pas de modèle pour prouver cela, mais nous conjecturons que l'on ne peut pas se passer de l'axiome archimédien. On pourra trouver dans~\cite{LICS04} une série de résultats de hiérarchisation des propriétés semi-classiques qui nous confortent dans cette supposition.
 
 \subsubsection{Développements éventuels}
 
