@@ -6,7 +6,7 @@ MAIN_TEX = $(MAIN).tex
 MAIN_PDF = $(MAIN).pdf
 
 all: cleaned
-	evince $(MAIN_PDF) &
+	xpdf $(MAIN_PDF) &
 
 cleaned: main
 	rm -f *.ps *.dvi *.aux *.out *.toc *.log *.lof *.lot *~

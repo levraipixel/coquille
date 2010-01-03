@@ -52,7 +52,7 @@ L'axiome archimédien et MP sont de fait équivalents\footnote{Nous en avons une
 
 L'idée de bibliothèque réelle auto-contenue pourrait être complètement implémentée, et cela en expurgeant toutes les références au module \coqcode{Classical} de la bibliothèque \coqcode{Reals}. Cependant, la tâche risque de s'avérer longue pour un résultat à l'intérêt douteux.
 
-\section{Analyse}
+\section{Réels}
 
 \subsection{Suites réelles (\coqcode{Rsequence})}
 
@@ -161,8 +161,7 @@ La bibliothèque contient également quelques développements en série de Taylo
 	Quelques propriétés d'inégalité (comme Cauchy-Schwartz ou l'inégalité de la moyenne) sur les intégrales sont maintenant contenues dans la bibliothèque, tout comme d'autres résultats forts comme la nullité d'une fonction continue, positive et d'intégrale nulle ou encore le théorème fondamental de l'analyse. 
 	Ce dernier était en effet déjà démontré dans la bibliothèque standard, mais ses hypothèses étaient trop fortes (en particulier, la fonction devait être $\mathcal{C}^1$ sur $\mathbb{R}$, bien que l'on ne l'intègre que sur un intervalle. Ceci a permis de donner la valeur de nombreuses intégrales usuelles comme les polynômes ou les fonctions trigonométriques.
 	
-\subsection{Complexes (\coqcode{Complex})}
-
+\section{Complexes}
 
 \subsubsection{Motivations}
 
@@ -183,7 +182,7 @@ Nous avons tenté d'utiliser des définitions analogues à celles utilisées dan
  \item [Analyse complexe :] Continuité et dérivabilité.
  \item [Polynômes :] Lemmes sur des polynômes de degré 2 permettant de résoudre certains problèmes dans les réels.
  \item [Trigonométrie :] Existence de la représentation polaire et formule d'Euler.
- \item [Suites Complexes:] Définition et lemmes sur les suites ainsi que les séries et séries entières.
+ \item [Suites Complexes :] Définition et lemmes sur les suites ainsi que les séries et séries entières.
 \end{description}
 
 \subsection{Propriétés de $\mathbb{C}$ et fonctions de base}
@@ -221,7 +220,7 @@ La bibliothèque standard propose des résultats généraux sur certaines struct
 
 \subsubsection{Motivations}
 
-Pour montrer des théorèmes intéressants, nous avons eu besoin de créer quelques fonctions de base et beaucoup de lemmes pour pouvoir utiliser ces fonctions. %TODO Très bof, ça. Ben modifiez le Bordel !
+Une bibliothèque sur les complexes ne peut pas se passer des fonctions de base (que ce soit la puissance, la norme, etc.) et des lemmes qui permettent leur manipulation (compatibilité avec les opérateurs de base, inégalités, etc.)
 
 \subsubsection{Description}
 
@@ -248,13 +247,17 @@ Cette bibliothèque est la petite s\oe{}ur de la bibliothèque sur les suites à
 
 Les séries entières sont la base de la trigonométrie telle qu'elle est faite en \coq{}. Le programme de classes préparatoires se base aussi largement sur ce genre de série. Il apparait donc essentiel de définir les séries entières en \coq{}.
 
+\coqcode{Cpser} est une généralisation de \coqcode{Rpser} et doit être conçu de manière plus modulaire : le but n'est plus seulement de faire tomber des résultats théoriques majeurs mais de fournir également des lemmes intermédiaires réutilisables lorsqu'on voudra s'intéresser à des cas particuliers.
+
 \subsubsection{Description}
 
+Cette bibliothèque commence par établir des liens entre les séries entières réelles et les séries entières complexes afin de simplifier les preuves de convergence. On utilsera également un résultat majeur de \coqcode{Csequence} qui prouve que si $(z_n)_{n \in \mathbb{N}}$ vérifie le critère de Cauchy, alors $(Im (z_n))_{n \in \mathbb{N}}$ et $(Re(z_n))_{n \in \mathbb{N}}$ le vérifient également (et réciproquement).
 
+Elle donne ensuite des preuves modulaires des lemmes d'Abel et d'Alembert : la démonstration est découpée en lemmes intermédiaires très généraux qui sont aisément réutilisables.
 
 \subsubsection{Application}
 
-On pourrait se baser sur cette bibliothèque pour définir les fonctions trigonométriques complexes ou encore l'exponentielle complexe.
+Cette bibliothèque peut-être utilisée pour définir des fonctions telles que l'exponentielle complexe et les fonctions trigonométriques qui en découle. Cette approche permet de démontrer automatiquement la dérivabilité des fonctions ainsi définies.
 
 \subsection{Résultats intéressants}
 
