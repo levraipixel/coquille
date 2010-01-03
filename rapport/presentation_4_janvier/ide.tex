@@ -24,13 +24,13 @@
 
     \begin{frame}{Que faire $\ldots$}
         \begin{itemize}
-        	\item Tenter de modifier \coqide{} ? \pause Non
+        	\item Tenter de modifier \coqide{} ? \pause \textcolor{red}{Non}
         	\pause
-        	\item Créer des plugins pour les éditeurs classiques ? \pause Non
+        	\item Créer des plugins pour les éditeurs classiques ? \pause \textcolor{red}{Non}
         	\pause
-        	\item Coder un IDE \textit{from scratch} ? \pause Oui\\
+        	\item Coder un IDE \textit{from scratch} ? \pause \textcolor{green}{Oui}\\
         	\pause
-        	\pause Car il est alors plus facile :
+        	Car il est alors plus facile :
         	\begin{itemize}
         		\item de bien structurer et de séparer le dialogue avec \coq{}
         		\item d'intégrer la communication avec les fonctionnalités d'apprentissage
@@ -48,31 +48,38 @@
         ~\\
         \pause
         ~\\
-        Choix de C++
+        $\Rightarrow$ Choix de C++
     \end{frame}
     
     \begin{frame}{Les Bibliothèques}
-        \begin{itemize}
-        	\item Qt, pour :
+        \begin{exampleblock}{Qt}
+            \only<2>{
         	\begin{itemize}
         		\item Qt Creator
         		\item Qt Designer
         		\item Qt Linguist
         		\item sa documentation$\ldots$ un vrai plaisir !
     		\end{itemize}
-    		\item \qcodeedit{}, pour :
+    		}
+    	\end{exampleblock}
+        \begin{block}{\qcodeedit{}}
+            \only<3>{
         	\begin{itemize}
         		\item le ``code folding" au départ
         		\item son existence, parce qu'il n'en existe pas tant que ça $\ldots$
         		\item sa puissance ensuite
         		\item sa documentation
-    		\end{itemize}
-    		\item \qtermwidget{}, pour :
+		    \end{itemize}
+		    }
+		\end{block}
+		\begin{alertblock}{\qtermwidget{}}
+            \only<4>{
         	\begin{itemize}
         		\item un vrai terminal
         		\item son existence, idem
     		\end{itemize}
-    	\end{itemize}
+    		}
+		\end{alertblock}
 	\end{frame}
 		
     \begin{frame}{Le dialogue avec \coq{}}
@@ -83,12 +90,12 @@
 
     \begin{frame}{Au niveau des bibliothèques}
         Le point délicat : \qcodeedit{}.
-
+        \pause
         \begin{itemize}
         	\item Plutôt destiné à être installé par l'utilisateur indépendamment
         	\item Beaucoup, beaucoup de code
         \end{itemize}
-
+        \pause
         \begin{alertblock}{Notre sauveur}
             Hugues Luc Bruant (ENSIMAG)
         \end{alertblock}
@@ -96,7 +103,6 @@
 		
     \begin{frame}{Au niveau du dialogue avec \coq{}}
     
-        Aïe $\ldots$
         \begin{itemize}
         	\item La discrimination des erreurs
         	\item Les réponses vides
@@ -118,7 +124,7 @@
     	\end{itemize}
 
         \only<8-10>{
-        \begin{exampleblock}{Une solution ?}
+        \begin{exampleblock}{Une solution pour l'annulation ?}
             Utiliser les commandes \coqcode{Write State} et \coqcode{Restore State} à chaque étape.
             \only<9-10>{
             Mais :
@@ -144,39 +150,51 @@
     \subsubsection{Ce que \coquille{} fait et que \coqide{} ne fait pas !}
     
         \begin{frame}{\coquille{} mais pas \coqide{} : Au niveau du code}
+            \only<2->{
             \begin{itemize}
                 \item Marquer les numéros de ligne
-                \item Le ``code folding" : replier des lignes de code en une seule pour améliorer la lisibilité
-                \item Des raccourcis clavier plus ``classiques", et personnalisables
-                \item La possibilité de faire des ``Redo" après des ``Undo"
+                \only<3->{\item Le ``code folding" : replier des lignes de code en une seule pour améliorer la lisibilité}
+                \only<4->{\item Des raccourcis clavier plus ``classiques", et personnalisables}
+                \only<5->{\item La possibilité de faire des ``Redo" après des ``Undo"}
             \end{itemize}
+            }
             \begin{figure}[ht]
+                \only<2->{
                 \begin{minipage}[b]{0.3\linewidth}
                     \centering
                     \includegraphics[scale=0.5]{../images/ide/lines.png}
                     \caption{La numérotation des lignes}
                 \end{minipage}
+                }
                 \hfill
+                \only<3->{
                 \begin{minipage}[b]{0.3\linewidth}   
 	                \centering
 	                \includegraphics[scale=0.5]{../images/ide/folding.png}
 	                \caption{Le ``code folding"}
                 \end{minipage}
+                }
                 \hfill
+                \only<5->{
                 \begin{minipage}[b]{0.3\linewidth}   
 	                \centering
 	                \includegraphics[scale=0.5]{../images/ide/redo.png}
 	                \caption{Le ``Redo"}
 	            \end{minipage}
+	            }
             \end{figure}
         \end{frame}
             
         \begin{frame}{\coquille{} mais pas \coqide{} : Au niveau du langage}
             \begin{itemize}
+                \pause
                 \item La gestion de ``Ltac Debug"
+                \pause
                 \item Plusieurs instances de \coqtop{}
-                \item Affichage en version classique ou $\LaTeX$-like
+                \pause
                 \item « Send / Unsend » est annulable
+                \pause
+                \item Affichage en version classique ou $\LaTeX$-like
             \end{itemize}
             \begin{figure}[ht]
 	            \centering
@@ -200,10 +218,11 @@
                     \item Lister les actions disponibles par click droit sur une hypothèse ou un but.
                 \end{itemize}
             \end{block}
+            \pause
             \begin{block}{Au niveau du langage}
                 \begin{itemize}
                     \item Le Proof Wizard.
-                    \item La gestions de la compilation et des exportations : \coqide{} permet de compiler / exporte un fichier sans passer par ligne de commande
+                    \item La gestions de la compilation et des exportations : \coqide{} permet de compiler / exporte un fichier sans passer par un terminal
                 \end{itemize}
             \end{block}
         \end{frame}
@@ -216,12 +235,11 @@
                     \item L'auto-complétion
                 \end{itemize}
             \end{block}
+            \pause
             \begin{block}{Au niveau du langage}
                 \begin{itemize}
                     \item La gestion de l'aide
                     \item La gestion des « \coqcode{Write State} / \coqcode{Restore State} ».
-                    En théorie, la commande \coqcode{Write State} est censée sauvegarder l'état de l'interpréteur (variables, commandes envoyées, etc), tandis que \coqcode{Restore State} est censé restaurer cet état.
-			        En pratique, \coqcode{Restore State} ne marche pas dans \coqtop{}, ce qui nous empêche de l'utiliser.
                 \end{itemize}
             \end{block}
         \end{frame}
@@ -229,10 +247,8 @@
 \subsection{Les objectifs}
 
     \begin{frame}{Objectifs}
-        La majorité des objectifs que le WP IDE s'étaient fixés à l'origine ont été largement atteints puisqu'on dispose d'un IDE fonctionnel si on s'interdit la gestion de l'environnement (\coqcode{Write State} \& cie),  qui reprend \coqide{} avec plus de fonctionnalités et qui est plus pratique à utiliser dans l'optique du projet.
+        Continuer le projet si l'INRIA finit de développer une interface de dialogue avec \coq{} utilisable.
 
-        Il serait envisageable de continuer le projet si l'INRIA finit de développer une interface de dialogue avec \coq{} utilisable.
-En attendant, on ne peut que corriger les bugs.
-
-        Au niveau de la distribution, nous avons déjà mis \coquille{} sous forme de paquets (``.deb" \& cie). Il nous reste donc principalement à distribuer et diffuser \coquille{} dans la communauté \coq{} et à y inclure un petit manuel d'utilisation. Un manuel programmeur basique est déjà mis à disposition.
+        Distribuer l'IDE de \coquille{} dans la communauté \coq{} avec un petit manuel d'utilisation.
+        Un manuel programmeur basique est déjà mis à disposition.
     \end{frame}
