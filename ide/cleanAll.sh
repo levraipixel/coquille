@@ -9,7 +9,7 @@ rm Makefile*
 rm *~
 
 cd doc
-    rm -r *
+  rm -r *
 cd ../
 
 cd lib
