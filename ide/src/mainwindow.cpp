@@ -523,10 +523,10 @@ void MainWindow::on_actionSendToCursor_triggered() {
     m_tabManager->goToCursor();
 }
 void MainWindow::on_actionInterrupt_triggered() {
-    m_tabManager->interrupt();
+//    m_tabManager->interrupt();
 }
 void MainWindow::on_actionRestart_triggered() {
-    m_tabManager->restart();
+//    m_tabManager->restart();
 }
 
 /* Display */
