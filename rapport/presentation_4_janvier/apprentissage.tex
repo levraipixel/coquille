@@ -8,36 +8,50 @@ L'objectif de ce groupe de travail est à partir de nombreux exercices, de crée
 \end{minipage}
 
 \end{frame}
+
 \begin{frame}
-
-
 \includegraphics{../images/apprentissage/decision_tree.jpg}
-
 \end{frame}
 
 \begin{frame}
 
-Les questions sont:
+  L'idée
+  \begin{itemize}
+  \item Réponse sûre au plus vite
+  \item On choisit les questions diminuant le plus l'information restante
+  \end{itemize}
+
+  Difficultés
+  \begin{itemize}
+    \item Grand nombre de questions possibles
+    \item Multiplicité des réponses à une même question pour un même exemple
+    \item Renumérotation des hypothèses
+    \item Questions non fixes
+  \end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Pipeau?}
 \begin{itemize}
-    \item Quel est le token à la racine de l'arbre x?
-    \item Est-ce que les arbres x et y ont le même token en racine?
+\item Supposition d'une distribution représentative \\
+  $\rightarrow$ Problèmes très classiques, redondant
+\item Pas l'arbre le plus petit en théorie \\
+  $\rightarrow$ En pratique, ça marche
+\item Choix restreint sur les questions\\
+  $\rightarrow$ Souvent comme ça qu'on réflechit
 \end{itemize}
-
-
-Pour choisir la question à poser, 
-on calcule la question qui nous donne le meilleur rapport "information apportée selon la définition de von Newmann" sur "nombre de réponses". 
-On cherche donc à minimiser la taille de l'arbre (et non sa profondeur),
-car c'est d'elle que dépend le temps d'exécution et l'occupation de la mémoire.
 \end{frame}
-\begin{frame}
 
-Résultats
+
+\begin{frame}
+\frametitle{Résultats}
+
 \begin{itemize}
     \item Le parcours d'arbres et le raffinement des données sont utilisables.
     \item L'algorithme d'apprentissage a été réalisé.
 \end{itemize}
-
-
-
 
 \end{frame}
