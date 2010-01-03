@@ -1,11 +1,11 @@
-\newcommand{\qcodeedit}{QCodeEdit~}
-\newcommand{\qtermwidget}{QTermWidget~}
-\newcommand{\stdout}{StdOut~}
-\newcommand{\stderr}{StdErr~}
+\newcommand{\qcodeedit}{QCodeEdit}
+\newcommand{\qtermwidget}{QTermWidget}
+\newcommand{\stdout}{StdOut}
+\newcommand{\stderr}{StdErr}
 
 \subsection{Contexte initial}
 
-    \begin{frame}{État de l'art : \coqide}
+    \begin{frame}{État de l'art : \coqide{}}
 
         \begin{itemize}
         	\item un IDE pas vraiment user-friendly
@@ -13,7 +13,7 @@
 	    \end{itemize}
 	\end{frame}
 		
-	\begin{frame}{Les besoins du projet \coquille}
+	\begin{frame}{Les besoins du projet \coquille{}}
         Surtout pour le WP Apprentissage :
 	    \begin{itemize}
 		    \item ``Apprendre cette preuve"
@@ -24,7 +24,7 @@
 
     \begin{frame}{Que faire $\ldots$}
         \begin{itemize}
-        	\item Tenter de modifier \coqide ? \pause Non
+        	\item Tenter de modifier \coqide{} ? \pause Non
         	\pause
         	\item Créer des plugins pour les éditeurs classiques ? \pause Non
         	\pause
@@ -32,7 +32,7 @@
         	\pause
         	\pause Car il est alors plus facile :
         	\begin{itemize}
-        		\item de bien structurer et de séparer le dialogue avec \coq
+        		\item de bien structurer et de séparer le dialogue avec \coq{}
         		\item d'intégrer la communication avec les fonctionnalités d'apprentissage
         		\item de gérer des détails comme la mise en page, la coloration, le ``code folding", $\ldots$
             \end{itemize}
@@ -55,19 +55,19 @@
         \begin{itemize}
         	\item Qt, pour :
         	\begin{itemize}
-        		\item QtCreator
-        		\item QtDesigner
-        		\item QtLinguist
+        		\item Qt Creator
+        		\item Qt Designer
+        		\item Qt Linguist
         		\item sa documentation$\ldots$ un vrai plaisir !
     		\end{itemize}
-    		\item \qcodeedit, pour :
+    		\item \qcodeedit{}, pour :
         	\begin{itemize}
         		\item le ``code folding" au départ
         		\item son existence, parce qu'il n'en existe pas tant que ça $\ldots$
         		\item sa puissance ensuite
         		\item sa documentation
     		\end{itemize}
-    		\item \qtermwidget, pour :
+    		\item \qtermwidget{}, pour :
         	\begin{itemize}
         		\item un vrai terminal
         		\item son existence, idem
@@ -75,14 +75,14 @@
     	\end{itemize}
 	\end{frame}
 		
-    \begin{frame}{Le dialogue avec \coq}
-        $\ldots$ Choisir entre \coqtop et \coqtop $\ldots$
+    \begin{frame}{Le dialogue avec \coq{}}
+        $\ldots$ Choisir entre \coqtop{} et \coqtop{} $\ldots$
     \end{frame}
         
 \subsection{Les problèmes rencontrés}
 
     \begin{frame}{Au niveau des bibliothèques}
-        Le point délicat : \qcodeedit.
+        Le point délicat : \qcodeedit{}.
 
         \begin{itemize}
         	\item Plutôt destiné à être installé par l'utilisateur indépendamment
@@ -94,7 +94,7 @@
         \end{alertblock}
     \end{frame}
 		
-    \begin{frame}{Au niveau du dialogue avec \coq}
+    \begin{frame}{Au niveau du dialogue avec \coq{}}
     
         Aïe $\ldots$
         \begin{itemize}
@@ -110,7 +110,7 @@
         	\only<4-7>{
         	\begin{itemize}
         		\item Plusieurs commandes d'annulation
-        		\only<5-7>{\item Les commandes ignorées par \coqtop (comme \coqcode{Proof.})}
+        		\only<5-7>{\item Les commandes ignorées par \coqtop{} (comme \coqcode{Proof.})}
         		\only<6-7>{\item Parfois impossible d'annuler une seule opération (comme \coqcode{Qed.})}
         		\only<7-7>{\item Encore pire avec des preuves imbriquées}
     		\end{itemize}
@@ -123,7 +123,7 @@
             \only<9-10>{
             Mais :
             \begin{itemize}
-             	\item \coqcode{Write State} réinitialise \coqtop
+             	\item \coqcode{Write State} réinitialise \coqtop{}
              	\only<10-10>{\item \coqcode{Restore State} ne fonctionne pas !}
              \end{itemize}
              }
@@ -133,7 +133,7 @@
         \only<11-11>{
         \begin{block}{Il est normal que nous en bavions}
     		Vincent Gross (INRIA) :\\
-    		« il n'y a à l'heure actuelle aucune séparation entre \coq et ses interfaces de communication (\coqtop, \coqide) »\\
+    		« il n'y a à l'heure actuelle aucune séparation entre \coq{} et ses interfaces de communication (\coqtop{}, \coqide{}) »\\
     		« il n'existe aucune API »
     	\end{block}
     	}
@@ -141,9 +141,9 @@
 				
 \subsection{Le résultat actuel}
 
-    \subsubsection{Ce que \coquille fait et que \coqide ne fait pas !}
+    \subsubsection{Ce que \coquille{} fait et que \coqide{} ne fait pas !}
     
-        \begin{frame}{Au niveau du code}        
+        \begin{frame}{\coquille{} mais pas \coqide{} : Au niveau du code}
             \begin{itemize}
                 \item Marquer les numéros de ligne
                 \item Le ``code folding" : replier des lignes de code en une seule pour améliorer la lisibilité
@@ -171,10 +171,10 @@
             \end{figure}
         \end{frame}
             
-        \begin{frame}{Au niveau du langage}
+        \begin{frame}{\coquille{} mais pas \coqide{} : Au niveau du langage}
             \begin{itemize}
                 \item La gestion de ``Ltac Debug"
-                \item Plusieurs instances de \coqtop
+                \item Plusieurs instances de \coqtop{}
                 \item Affichage en version classique ou $\LaTeX$-like
                 \item « Send / Unsend » est annulable
             \end{itemize}
@@ -184,7 +184,7 @@
 	            \caption{L'affichage $\LaTeX$-like}
             \end{figure}
         \end{frame}
-        \begin{frame}{Au niveau du langage}
+        \begin{frame}{\coquille{} mais pas \coqide{} : Au niveau du langage}
             \begin{figure}[ht]
 	            \centering
 	            \includegraphics[scale=0.2]{../images/ide/ltacdebug.png}
@@ -192,9 +192,9 @@
             \end{figure}
         \end{frame}
             
-    \subsubsection{Ce que \coqide fait et que \coquille ne fait pas (encore)}
+    \subsubsection{Ce que \coqide{} fait et que \coquille{} ne fait pas (encore)}
     
-        \begin{frame}{Ce que \coqide fait et que \coquille ne fait pas (encore)}
+        \begin{frame}{Ce que \coqide{} fait et que \coquille{} ne fait pas (encore)}
             \begin{block}{Au niveau du code}
                 \begin{itemize}
                     \item Lister les actions disponibles par click droit sur une hypothèse ou un but.
@@ -203,7 +203,7 @@
             \begin{block}{Au niveau du langage}
                 \begin{itemize}
                     \item Le Proof Wizard.
-                    \item La gestions de la compilation et des exportations : \coqide permet de compiler / exporte un fichier sans passer par ligne de commande
+                    \item La gestions de la compilation et des exportations : \coqide{} permet de compiler / exporte un fichier sans passer par ligne de commande
                 \end{itemize}
             \end{block}
         \end{frame}
@@ -221,7 +221,7 @@
                     \item La gestion de l'aide
                     \item La gestion des « \coqcode{Write State} / \coqcode{Restore State} ».
                     En théorie, la commande \coqcode{Write State} est censée sauvegarder l'état de l'interpréteur (variables, commandes envoyées, etc), tandis que \coqcode{Restore State} est censé restaurer cet état.
-			        En pratique, \coqcode{Restore State} ne marche pas dans \coqtop, ce qui nous empêche de l'utiliser.
+			        En pratique, \coqcode{Restore State} ne marche pas dans \coqtop{}, ce qui nous empêche de l'utiliser.
                 \end{itemize}
             \end{block}
         \end{frame}
@@ -229,10 +229,10 @@
 \subsection{Les objectifs}
 
     \begin{frame}{Objectifs}
-        La majorité des objectifs que le WP IDE s'étaient fixés à l'origine ont été largement atteints puisqu'on dispose d'un IDE fonctionnel si on s'interdit la gestion de l'environnement (\coqcode{Write State} \& cie),  qui reprend \coqide avec plus de fonctionnalités et qui est plus pratique à utiliser dans l'optique du projet.
+        La majorité des objectifs que le WP IDE s'étaient fixés à l'origine ont été largement atteints puisqu'on dispose d'un IDE fonctionnel si on s'interdit la gestion de l'environnement (\coqcode{Write State} \& cie),  qui reprend \coqide{} avec plus de fonctionnalités et qui est plus pratique à utiliser dans l'optique du projet.
 
-        Il serait envisageable de continuer le projet si l'INRIA finit de développer une interface de dialogue avec \coq utilisable.
+        Il serait envisageable de continuer le projet si l'INRIA finit de développer une interface de dialogue avec \coq{} utilisable.
 En attendant, on ne peut que corriger les bugs.
 
-        Au niveau de la distribution, nous avons déjà mis \coquille sous forme de paquets (``.deb" \& cie). Il nous reste donc principalement à distribuer et diffuser \coquille dans la communauté \coq et à y inclure un petit manuel d'utilisation. Un manuel programmeur basique est déjà mis à disposition.
+        Au niveau de la distribution, nous avons déjà mis \coquille{} sous forme de paquets (``.deb" \& cie). Il nous reste donc principalement à distribuer et diffuser \coquille{} dans la communauté \coq{} et à y inclure un petit manuel d'utilisation. Un manuel programmeur basique est déjà mis à disposition.
     \end{frame}

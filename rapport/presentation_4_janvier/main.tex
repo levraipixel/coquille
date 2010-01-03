@@ -9,15 +9,31 @@
 \usepackage{amssymb}
 \usepackage{default}
 
-\newcommand{\coq}{Coq~}
-\newcommand{\coqtop}{Coqtop~}
-\newcommand{\coqide}{CoqIDE~}
-\newcommand{\coquille}{\textsc{Coquille}~}
+\newcommand{\coq}{Coq}
+\newcommand{\coqtop}{Coqtop}
+\newcommand{\coqide}{CoqIDE}
+\newcommand{\coquille}{\textsc{Coquille}}
 \newcommand{\coqcode}[1]{\texttt{#1}}
 
 \date{Lundi 4 Janvier 2010}
 \title{Rapport du projet \coquille}
 \author{M1 Informatique Fondamentale - ENS Lyon}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Plan}
+    \tableofcontents[currentsection,sections=\thesection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}
+    \frametitle{Plan}
+    \tableofcontents[currentsection,currentsubsection,sections=\thesection]
+  \end{frame}
+}
 
 \begin{document}
 
@@ -27,7 +43,7 @@
     \begin{figure}[ht]
         \begin{minipage}[b]{0.4\linewidth}
             \centering
-            \includegraphics[width=0.4\textwidth]{../images/common/poussin.png}
+            \includegraphics[width=0.9\textwidth]{../images/common/poussin.pdf}
         \end{minipage}
         \hfill
         \begin{minipage}[b]{0.4\linewidth}   
@@ -37,8 +53,8 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}[plain]
-    \tableofcontents
+\begin{frame}[plain]{Plan}
+	\tableofcontents[hideallsubsections]
 \end{frame}
 
 \section{Le projet Coquille en g\'en\'eral}
