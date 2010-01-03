@@ -119,7 +119,7 @@ ShortcutForm::ShortcutForm( QString actionName, QString actionText, QKeySequence
     m_shortcutsForm->addWidget( m_lineEdit, m_line, 1, 1, 1);
 
     m_pushButton = new QPushButton( layout );
-    m_pushButton->setText( "Default" );
+    m_pushButton->setText( tr( "Default" ) );
     //nextDefault->setObjectName(QString::fromUtf8("nextDefault"));
     m_shortcutsForm->addWidget( m_pushButton, m_line, 2, 1, 1);
 

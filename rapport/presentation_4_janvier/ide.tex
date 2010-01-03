@@ -1,69 +1,238 @@
-\begin{frame}
-\frametitle{WP IDE} 
-L'objectif du WP IDE est de construire une interface de programmation en Coq plus orientée vers l'aide à la programmation que l'actuel CoqIde.
-%% L'AIDE À LA PROGRAMMATION ?
-% non, pas "plus orientée vers l'aide" non plus. juste plus élaborée avec plus de fonctionalités, et moins de bug (mais pas pour l'instant)
-\end{frame}
+\newcommand{\qcodeedit}{QCodeEdit~}
+\newcommand{\qtermwidget}{QTermWidget~}
+\newcommand{\stdout}{StdOut~}
+\newcommand{\stderr}{StdErr~}
 
-\begin{frame}
-Ce que Coquille fait et que CoqIde ne fait pas au niveau du code :
-\begin{itemize}
-    \item Les numéros de ligne.
-    \item Le code folding (replier des lignes de code en une seule, pour une preuve par exemple).
-    \item Des raccourcis plus "classiques", et personnalisables.
-    \item Possibilité de faire "Redo" après des "Undo".
-\end{itemize}
-\end{frame}
+\subsection{Contexte initial}
 
-\begin{frame}
+    \begin{frame}{État de l'art : \coqide}
 
-Au niveau du langage :
-\begin{itemize}
-    \item La gestion de Ltac Debug, avec une interface de parcours des résultatsScreenshot
-    \item Plusieurs instances de Coqtop, une par onglet ouvert
-    \item Un affichage des résultats au choix : classique ou LaTeX-likeScreenshot
-    \item L'action "Next/Previous" d'envoi d'une commande est considérée comme une action comme les autres, donc "Undo/Redo" agit dessus
-\end{itemize}
- 
-\end{frame}
+        \begin{itemize}
+        	\item un IDE pas vraiment user-friendly
+        	\item un code très opaque
+	    \end{itemize}
+	\end{frame}
+		
+	\begin{frame}{Les besoins du projet \coquille}
+        Surtout pour le WP Apprentissage :
+	    \begin{itemize}
+		    \item ``Apprendre cette preuve"
+		    \item ``Propositions"
+		    \item Interface de feedback pour évaluer des essais
+	    \end{itemize}
+	\end{frame}
 
-\begin{frame}
+    \begin{frame}{Que faire $\ldots$}
+        \begin{itemize}
+        	\item Tenter de modifier \coqide ? \pause Non
+        	\pause
+        	\item Créer des plugins pour les éditeurs classiques ? \pause Non
+        	\pause
+        	\item Coder un IDE \textit{from scratch} ? \pause Oui\\
+        	\pause
+        	\pause Car il est alors plus facile :
+        	\begin{itemize}
+        		\item de bien structurer et de séparer le dialogue avec \coq
+        		\item d'intégrer la communication avec les fonctionnalités d'apprentissage
+        		\item de gérer des détails comme la mise en page, la coloration, le ``code folding", $\ldots$
+            \end{itemize}
+        \end{itemize}
+        \pause
+        Et puis on apprendra sûrement plus de choses !
+	\end{frame}
 
-Ce que CoqIde fait au niveau du code :
+\subsection{Quelques choix à faire}
 
-\begin{itemize}
-    \item Lister les tactiques existantes dans un menu.
-    \item Lister les actions disponibles par click droit sur une hypothèse ou un but.
-\end{itemize}
+    \begin{frame}{Le Langage}
+        C++ VS. Java : mini concours
+        ~\\
+        \pause
+        ~\\
+        Choix de C++
+    \end{frame}
+    
+    \begin{frame}{Les Bibliothèques}
+        \begin{itemize}
+        	\item Qt, pour :
+        	\begin{itemize}
+        		\item QtCreator
+        		\item QtDesigner
+        		\item QtLinguist
+        		\item sa documentation$\ldots$ un vrai plaisir !
+    		\end{itemize}
+    		\item \qcodeedit, pour :
+        	\begin{itemize}
+        		\item le ``code folding" au départ
+        		\item son existence, parce qu'il n'en existe pas tant que ça $\ldots$
+        		\item sa puissance ensuite
+        		\item sa documentation
+    		\end{itemize}
+    		\item \qtermwidget, pour :
+        	\begin{itemize}
+        		\item un vrai terminal
+        		\item son existence, idem
+    		\end{itemize}
+    	\end{itemize}
+	\end{frame}
+		
+    \begin{frame}{Le dialogue avec \coq}
+        $\ldots$ Choisir entre \coqtop et \coqtop $\ldots$
+    \end{frame}
+        
+\subsection{Les problèmes rencontrés}
 
+    \begin{frame}{Au niveau des bibliothèques}
+        Le point délicat : \qcodeedit.
 
+        \begin{itemize}
+        	\item Plutôt destiné à être installé par l'utilisateur indépendamment
+        	\item Beaucoup, beaucoup de code
+        \end{itemize}
 
-\end{frame}
+        \begin{alertblock}{Notre sauveur}
+            Hugues Luc Bruant (ENSIMAG)
+        \end{alertblock}
+    \end{frame}
+		
+    \begin{frame}{Au niveau du dialogue avec \coq}
+    
+        Aïe $\ldots$
+        \begin{itemize}
+        	\item La discrimination des erreurs
+        	\item Les réponses vides
+        	\only<2-3>{
+        	\begin{itemize}
+        		\item Attendre ?
+        		\only<3-3>{\item Un temps maximal d'attente ?}
+        	\end{itemize}
+        	}
+        	\item L'annulation
+        	\only<4-7>{
+        	\begin{itemize}
+        		\item Plusieurs commandes d'annulation
+        		\only<5-7>{\item Les commandes ignorées par \coqtop (comme \coqcode{Proof.})}
+        		\only<6-7>{\item Parfois impossible d'annuler une seule opération (comme \coqcode{Qed.})}
+        		\only<7-7>{\item Encore pire avec des preuves imbriquées}
+    		\end{itemize}
+    		}
+    	\end{itemize}
 
+        \only<8-10>{
+        \begin{exampleblock}{Une solution ?}
+            Utiliser les commandes \coqcode{Write State} et \coqcode{Restore State} à chaque étape.
+            \only<9-10>{
+            Mais :
+            \begin{itemize}
+             	\item \coqcode{Write State} réinitialise \coqtop
+             	\only<10-10>{\item \coqcode{Restore State} ne fonctionne pas !}
+             \end{itemize}
+             }
+        \end{exampleblock}
+        }
+        
+        \only<11-11>{
+        \begin{block}{Il est normal que nous en bavions}
+    		Vincent Gross (INRIA) :\\
+    		« il n'y a à l'heure actuelle aucune séparation entre \coq et ses interfaces de communication (\coqtop, \coqide) »\\
+    		« il n'existe aucune API »
+    	\end{block}
+    	}
+    \end{frame}
+				
+\subsection{Le résultat actuel}
 
-\begin{frame}
+    \subsubsection{Ce que \coquille fait et que \coqide ne fait pas !}
+    
+        \begin{frame}{Au niveau du code}        
+            \begin{itemize}
+                \item Marquer les numéros de ligne
+                \item Le ``code folding" : replier des lignes de code en une seule pour améliorer la lisibilité
+                \item Des raccourcis clavier plus ``classiques", et personnalisables
+                \item La possibilité de faire des ``Redo" après des ``Undo"
+            \end{itemize}
+            \begin{figure}[ht]
+                \begin{minipage}[b]{0.3\linewidth}
+                    \centering
+                    \includegraphics[scale=0.5]{../images/ide/lines.png}
+                    \caption{La numérotation des lignes}
+                \end{minipage}
+                \hfill
+                \begin{minipage}[b]{0.3\linewidth}   
+	                \centering
+	                \includegraphics[scale=0.5]{../images/ide/folding.png}
+	                \caption{Le ``code folding"}
+                \end{minipage}
+                \hfill
+                \begin{minipage}[b]{0.3\linewidth}   
+	                \centering
+	                \includegraphics[scale=0.5]{../images/ide/redo.png}
+	                \caption{Le ``Redo"}
+	            \end{minipage}
+            \end{figure}
+        \end{frame}
+            
+        \begin{frame}{Au niveau du langage}
+            \begin{itemize}
+                \item La gestion de ``Ltac Debug"
+                \item Plusieurs instances de \coqtop
+                \item Affichage en version classique ou $\LaTeX$-like
+                \item « Send / Unsend » est annulable
+            \end{itemize}
+            \begin{figure}[ht]
+	            \centering
+	            \includegraphics[scale=0.5]{../images/ide/unicode.png}
+	            \caption{L'affichage $\LaTeX$-like}
+            \end{figure}
+        \end{frame}
+        \begin{frame}{Au niveau du langage}
+            \begin{figure}[ht]
+	            \centering
+	            \includegraphics[scale=0.2]{../images/ide/ltacdebug.png}
+	            \caption{Le mode Ltac Debug}
+            \end{figure}
+        \end{frame}
+            
+    \subsubsection{Ce que \coqide fait et que \coquille ne fait pas (encore)}
+    
+        \begin{frame}{Ce que \coqide fait et que \coquille ne fait pas (encore)}
+            \begin{block}{Au niveau du code}
+                \begin{itemize}
+                    \item Lister les actions disponibles par click droit sur une hypothèse ou un but.
+                \end{itemize}
+            \end{block}
+            \begin{block}{Au niveau du langage}
+                \begin{itemize}
+                    \item Le Proof Wizard.
+                    \item La gestions de la compilation et des exportations : \coqide permet de compiler / exporte un fichier sans passer par ligne de commande
+                \end{itemize}
+            \end{block}
+        \end{frame}
 
-Au niveau du langage :
+    \subsubsection{Ce que ni l'un ni l'autre ne font bien}
 
-\begin{itemize}
-    \item Le Proof Wizard.
-%    \item La gestion des Write State / Restore State
-    \item La gestion de l'aide.
-    \item La gestions de la compilation.
-\end{itemize}
+        \begin{frame}{Ce que ni l'un ni l'autre ne font bien}
+            \begin{block}{Au niveau du code}
+                \begin{itemize}
+                    \item L'auto-complétion
+                \end{itemize}
+            \end{block}
+            \begin{block}{Au niveau du langage}
+                \begin{itemize}
+                    \item La gestion de l'aide
+                    \item La gestion des « \coqcode{Write State} / \coqcode{Restore State} ».
+                    En théorie, la commande \coqcode{Write State} est censée sauvegarder l'état de l'interpréteur (variables, commandes envoyées, etc), tandis que \coqcode{Restore State} est censé restaurer cet état.
+			        En pratique, \coqcode{Restore State} ne marche pas dans \coqtop, ce qui nous empêche de l'utiliser.
+                \end{itemize}
+            \end{block}
+        \end{frame}
 
+\subsection{Les objectifs}
 
-\end{frame}
+    \begin{frame}{Objectifs}
+        La majorité des objectifs que le WP IDE s'étaient fixés à l'origine ont été largement atteints puisqu'on dispose d'un IDE fonctionnel si on s'interdit la gestion de l'environnement (\coqcode{Write State} \& cie),  qui reprend \coqide avec plus de fonctionnalités et qui est plus pratique à utiliser dans l'optique du projet.
 
+        Il serait envisageable de continuer le projet si l'INRIA finit de développer une interface de dialogue avec \coq utilisable.
+En attendant, on ne peut que corriger les bugs.
 
-
-\begin{frame}
-\includegraphics[width=1\textwidth]{../images/ide/unicode.png}
-%ça ne compile pas ! Ajoutez les images, bordel --> ``attention, des images ont été oubliées'' est plus agréable à lire.
-%montrer des choses que ne peut pas faire coquille (quoi ?)
-\end{frame}
-
-\begin{frame}
-\includegraphics[width=1\textwidth]{../images/ide/ltacdebug.png}
-%(ltac debug)
-\end{frame}
+        Au niveau de la distribution, nous avons déjà mis \coquille sous forme de paquets (``.deb" \& cie). Il nous reste donc principalement à distribuer et diffuser \coquille dans la communauté \coq et à y inclure un petit manuel d'utilisation. Un manuel programmeur basique est déjà mis à disposition.
+    \end{frame}

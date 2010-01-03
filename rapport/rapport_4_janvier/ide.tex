@@ -33,7 +33,7 @@
 			\item Peu modulaire : Il n'y a aucune séparation entre \coqide{} et le noyau de \coq{}, et \coqide{} n'a pas de structure propre indépendante de \coq{}. (cf. Les détails de la discussion avec Vincent Gross).	
 		\end{itemize}
 		
-	\subsection{Les besoins du projet Coquille}
+	\subsection{Les besoins du projet \coquille}
 
 		Mise à part la nécessité d'un IDE pour \coq{}, qui reprenne donc les principales fonctionnalités de \coqide{} à savoir l'édition et coloration, l'envoi d'instructions à \coqtop{} étape par étape et la récupération des résultats ou messages d'erreurs, nous sommes restés à l'écoute des attentes des autres Groupes de Travail (Work Package en Anglais (WP)) :
         
@@ -98,13 +98,13 @@
 			En effet, QtCreator facilite amplement la création de fenêtres, le code Qt est très clair, propre et structuré; le slots sont gérés proprements en comparaison avec gtk par exemple.
 			D'autre part, la documentation est vraiment très abordables de sorte que l'on a appris très rapidement sur le tas à se servir de Qt.
 			
-		\subsubsection{\qcodeedit}
+		\subsubsection{\qcodeedit{}}
 			
 			Nous avons passé beaucoup de temps à chercher une bibliothèque d'édition de texte fournissant un plugin de ``code folding".
 			Il s'est avéré qu'il en existe peu, et \qcodeedit{} est l'une d'entre-elles.
 			Nous nous sommes aperçu ensuite que cette bibliothèque, très puissante, permet de faire bien d'autres choses, ce qui nous a beaucoup aidé.
 			
-		\subsubsection{\qtermwidget}
+		\subsubsection{\qtermwidget{}}
 			
 			Pour intégrer un terminal à l'IDE, ce fût un peu le même combat que pour trouver \qcodeedit{}.
 			Nous voulions un terminal qui puisse s'inclure dans un QWidget, et qui soit utilisable exactement comme un terminal UNIX.
@@ -174,7 +174,7 @@
 				
 \section{Le résultat actuel}
 
-    \subsection{Ce que Coquille fait et que \coqide{} ne fait pas !}
+    \subsection{Ce que \coquille fait et que \coqide{} ne fait pas !}
     
         \subsubsection{Au niveau du code}
         
@@ -229,7 +229,7 @@
 	            \label{fig:unicode}
             \end{figure}
             
-    \subsection{Ce que \coqide{} fait et que Coquille ne fait pas (encore)}
+    \subsection{Ce que \coqide{} fait et que \coquille{} ne fait pas (encore)}
     
         \subsubsection{Au niveau du code}
 
@@ -261,6 +261,47 @@
 			    En pratique, \coqcode{Restore State} ne marche pas dans \coqtop{}, ce qui nous empêche de l'utiliser.
             \end{itemize}
 
+    \subsection{Apperçu en couleur}
+    
+        Sur la figure \ref{fig:mainwindow}, on peut voir la fenêtre principale sans panneau optionnel.
+        La partie gauche est un éditeur de document, par lequel on dialogue avec \coq.
+        La partie de droite contient 2 récepteurs de texte, qui affichent les réponses de \coq.
+        
+        Sur la figure \ref{fig:pannels}, on peut voir la fenêtre principale avec des panneaux optionnels.
+        Le panneau de gauche contient un explorateur de fichiers et un navigateur de documents ouverts.
+        Le panneau de droite est le panneau de documentation.
+        Ces panneaux sont bien entendu déplacables à d'autres emplacement autour de la fenêtre, et peuvent également être extraits, comme sur la figure \ref{fig:pannelsext}.
+        
+        Sur la figure \ref{fig:settings}, on peut voir la fenêtre de modification des préférences.
+        L'onglet ``Page" contient les préférences d'affichage des éléments (police, taille, $\ldots$).
+        L'onglet ``Raccourcis" permet de modifier les raccourcis des actions les plus utilisées.
+        L'onglet ``Préférences" permet de choisir quelques options avancées d'affichage (défilement du cursuer, $\ldots$)
+
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[scale=0.4]{../images/ide/mainwindow.png}
+            \caption{La fenêtre principale}
+            \label{fig:mainwindow}
+        \end{figure}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[scale=0.3]{../images/ide/pannels.png}
+            \caption{Les panneaux optionnels}
+            \label{fig:pannels}
+        \end{figure}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[scale=0.3]{../images/ide/pannelsext.png}
+            \caption{Les panneaux optionnels à l'extérieur}
+            \label{fig:pannelsext}
+        \end{figure}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[scale=0.3]{../images/ide/settings.png}
+            \caption{La fenêtre de modification des préférences}
+            \label{fig:settings}
+        \end{figure}
+
 \section{Les objectifs}
 
 La majorité des objectifs que le WP IDE s'étaient fixés à l'origine ont été largement atteints puisqu'on dispose d'un IDE fonctionnel si on s'interdit la gestion de l'environnement (\coqcode{Write State} \& cie),  qui reprend \coqide{} avec plus de fonctionnalités et qui est plus pratique à utiliser dans l'optique du projet.
@@ -268,5 +309,5 @@ La majorité des objectifs que le WP IDE s'étaient fixés à l'origine ont ét�
 Il serait envisageable de continuer le projet si l'INRIA finit de développer une interface de dialogue avec \coq{} utilisable.
 En attendant, on ne peut que corriger les bugs.
 
-Au niveau de la distribution, nous avons déjà mis Coquille sous forme de paquets (\code{.deb} \& cie). Il nous reste donc principalement à distribuer et diffuser Coquille dans la communauté \coq{} et à y inclure un petit manuel d'utilisation. Un manuel programmeur basique est déjà mis à disposition.
+Au niveau de la distribution, nous avons déjà mis \coquille{} sous forme de paquets (\code{.deb} \& cie). Il nous reste donc principalement à distribuer et diffuser \coquille{} dans la communauté \coq{} et à y inclure un petit manuel d'utilisation. Un manuel programmeur basique est déjà mis à disposition.
 

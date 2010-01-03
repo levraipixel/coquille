@@ -156,7 +156,8 @@ void Settings::getSettingsFrom( MainWindow *mainWindow ) {
     mainWindowShortcuts.clear();
     QAction *action;
     for( QHash<QString, bool>::iterator shortcutedAction = mainWindowShortcutedActions.begin(); shortcutedAction != mainWindowShortcutedActions.end(); shortcutedAction++ ) {
-        if( action = mainWindow->getAction( shortcutedAction.key() ) )
+        action = mainWindow->getAction( shortcutedAction.key() );
+        if( action != 0 )
             mainWindowShortcuts.insert( shortcutedAction.key(), action->shortcut() );
     }
 }
@@ -176,15 +177,18 @@ void Settings::setSettingsTo( MainWindow *mainWindow ) {
     mainWindow->showDocumentationPanel( mainWindowShowDocumentationPanel );
     QAction *action;
     for( QHash<QString, bool>::iterator shortcutedAction = mainWindowShortcutedActions.begin(); shortcutedAction != mainWindowShortcutedActions.end(); shortcutedAction++ ) {
-        if( action = mainWindow->getAction( shortcutedAction.key() ) )
+        action = mainWindow->getAction( shortcutedAction.key() );
+        if( action != 0 )
             action->setShortcut( mainWindowShortcuts.value( shortcutedAction.key() ) );
     }
 }
 
 void Settings::getSettingsFrom( TextStd *textStd ) {
+    Q_UNUSED( textStd )
 }
 
 void Settings::setSettingsTo( TextStd *textStd ) {
+    Q_UNUSED( textStd )
 }
 
 void Settings::readSettingsFile() {

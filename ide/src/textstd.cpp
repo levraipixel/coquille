@@ -141,7 +141,7 @@ void TextStd::fillStdIn( QString text) {
 
 QString TextStd::displayUnicode( const QString &text ) {
     QString result(text);
-//    qDebug() << "before :\n" << text;
+    qDebug() << "before :\n" << text;
 
     result.replace( "<=", QChar(0x2264) );
     result.replace( ">=", QChar(0x2265) );

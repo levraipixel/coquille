@@ -499,6 +499,7 @@ void MainWindow::on_actionUncommentLines_triggered() {
     m_tabManager->uncommentLines();
 }
 void MainWindow::on_actionSettings_triggered() {
+    m_settings->getSettingsFrom( this );
     m_settings->showDialog();
 }
 void MainWindow::on_actionResetSettings_triggered() {
