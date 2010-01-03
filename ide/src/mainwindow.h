@@ -37,6 +37,7 @@ class QTreeView;
 class QComboBox;
 
 //Project Libs
+class QTermWidget;
 
 //Project Files
 class FileLink;
@@ -55,39 +56,35 @@ namespace Ui {
 //   MainWindow   //
 ////////////////////
 
+/*! \brief The main window
 
+Note that the terminal is not present only on UNIX and not on MACOSX
+
+*/
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
+    /*! uses the configuration from settings */
     MainWindow(Settings *settings);
     ~MainWindow();
-    void setActions();
-    void setIcons();
 
-    void closeEvent(QCloseEvent *event);
-    void writeSettings();
-    void readSettings();
-
-    void addRecentFile( QString fileName );
-    FileLink* lastRecentFile();
-    void refreshRecentMenu();
+    /*! accessor to the Tab Manager */
     QWidget* tabManager();
+    /*! returns the action */
     QAction* getAction( QString name );
-    QList<QAction*> actions();
 
 public slots:
-#ifdef TERMINAL
-    void showTerminal( bool visible );
-    void restartTerminal();
-#endif
-    void showFileBrowser( bool visible );
-    void showOpenedDocuments( bool visible );
+    /*! show / hide the "Documentation" pannel */
     void showDocumentationPanel( bool visible );
-    void displayDocName(const QString &c);
-    void openFileByPath();
-    void refreshOpenedDocuments();
-    void insertText( QString text );
+    /*! show / hide the "File Browser" panel */
+    void showFileBrowser( bool visible );
+    /*! show / hide the "Opened Documents" pannel */
+    void showOpenedDocuments( bool visible );
+    /*! show / hide the Terminal, if existing */
+    void showTerminal( bool visible );
+
+protected slots:
 
     /***************************/
     /*          Menus          */
@@ -103,7 +100,6 @@ public slots:
     void actionSave_triggered(int index = -1);
     void on_actionSaveAs_triggered();
     void on_actionSaveAll_triggered();
-    void clearRecentMenu();
 
     /* Edit */
     void on_actionSelectAll_triggered();
@@ -136,7 +132,8 @@ public slots:
 
     /* Display */
 #ifdef TERMINAL
-    void actionTerminal_toggled(bool checked);
+    void on_actionTerminal_toggled(bool checked);
+    void on_actionRestartTerminal_triggered();
 #endif
     void on_actionOpenedDocuments_toggled(bool checked);
     void on_actionFileBrowser_toggled(bool checked);
@@ -146,15 +143,33 @@ public slots:
     void on_actionAbout_triggered();
     void on_actionDocumentation_triggered();
 
-private slots:
-    void openSpecificFile(const QModelIndex &index);
-    void changeCurrentDocument(const QModelIndex &index);
-    void goUpInFileBrowser();
+    /***************************/
+    /*          Others         */
+    /***************************/
+
+    void clearRecentMenu();
+    void openFileByPath();
+    void displayDocName(const QString &c);
+    void insertText( QString text );
     void fileBrowserDrawPath( QString path );
+    void openSpecificFile(const QModelIndex &index);
+    void goUpInFileBrowser();
+    void refreshOpenedDocuments();
+    void changeCurrentDocument(const QModelIndex &index);
 
-private:
+protected:
+    void setActions();
+    void setIcons();
+
+    void closeEvent(QCloseEvent *event);
+    void writeSettings();
+    void readSettings();
+
+    void addRecentFile( QString fileName );
+    FileLink* lastRecentFile();
+    void refreshRecentMenu();
+
     QStringList readLines( QString fileName ) const;
-
 
     Ui::MainWindowClass *ui;
     TabManager *m_tabManager;
@@ -165,8 +180,7 @@ private:
     QComboBox *tactics;
 #ifdef TERMINAL
     QDockWidget *m_terminalDock;
-    QAction *m_actionTerminal;
-    QAction *m_actionRestartTerminal;
+//    QTermWidget *m_terminal;
 #endif
 };
 

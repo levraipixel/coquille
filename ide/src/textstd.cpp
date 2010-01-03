@@ -79,7 +79,6 @@ TextStd::TextStd( QWidget *parent, Settings *settings ) :
     m_foldPanel = new QFoldPanel;
     m_editControl->addPanel( m_foldPanel, QCodeEdit::West );
     m_editControl->toggleViewAction( m_foldPanel )->setShortcut(QKeySequence("Ctrl+F9"));
-//    m_foldPanel->hide();
     m_lineChangePanel = new QLineChangePanel;
     m_editControl->addPanel( m_lineChangePanel, QCodeEdit::West );
     m_statusPanel = new QStatusPanel;
@@ -88,11 +87,6 @@ TextStd::TextStd( QWidget *parent, Settings *settings ) :
     m_editControl->addPanel( m_searchReplacePanel, QCodeEdit::South );
     m_gotoLinePanel = new QGotoLinePanel;
     m_editControl->addPanel( m_gotoLinePanel, QCodeEdit::South );
-//    m_editControl->addPanel(new QLineNumberPanel, QCodeEdit::West, true)->setShortcut(QKeySequence("F11"));
-//    m_editControl->addPanel(new QFoldPanel, QCodeEdit::West, true)->setShortcut(QKeySequence("F9"));
-//    m_editControl->addPanel(new QLineChangePanel, QCodeEdit::West, true);
-//    m_editControl->addPanel(new QStatusPanel, QCodeEdit::South, true);
-//    m_editControl->addPanel(new QSearchReplacePanel, QCodeEdit::South);
 
 
     connect( m_editControl->editor(), SIGNAL(contentModified(bool)), this, SIGNAL(contentModified(bool)));
@@ -104,16 +98,6 @@ TextStd::~TextStd() {
 
 TextEditor* TextStd::textStdIn() {
     return (TextEditor*)m_editControl->editor();
-}
-QTextEdit* TextStd::textStdOut() {
-    return m_ui->textStdOut;
-}
-QTextEdit* TextStd::textStdErr() {
-    return m_ui->textStdErr;
-}
-
-Coqtop *TextStd::coqtop() {
-    return m_coqtop;
 }
 
 QString TextStd::wordUnderCursor() {
@@ -204,11 +188,11 @@ void TextStd::displayStdOut( QString text ) {
         qDebug() << "latex mode";
         result = displayUnicode( result );
     }
-    textStdOut()->setText( result );
+    m_ui->textStdOut->setText( result );
     displayStdErr( "" );
 }
 void TextStd::displayStdErr( QString text ) {
-    textStdErr()->setText( text );
+    m_ui->textStdErr->setText( text );
 }
 void TextStd::displayAnswer( Answer *answer ) {
     displayStdOut( answer->stdOut );
@@ -305,6 +289,7 @@ void TextStd::interrupt() {
 void TextStd::restart() {
     qDebug() << "restart";
     m_coqtop->restart();
+    textStdIn()->restart();
 }
 
 void TextStd::addFormatOverlay( const int formatId, const int lineIndex, const int columnStart, const int columnEnd ) {

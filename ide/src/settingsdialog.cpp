@@ -74,8 +74,8 @@ void SettingsDialog::addFontForm( QWidget *widget, QString label ) {
 
 void SettingsDialog::readShortcuts() {
     for( int i = 0; i < m_shortcutForm.size(); i++ ) {
-        m_settings->mainWindowShortcuts.remove( m_shortcutForm.at(i)->m_actionName );
-        m_settings->mainWindowShortcuts.insert( m_shortcutForm.at(i)->m_actionName, m_shortcutForm.at(i)->m_lineEdit->text() );
+        m_settings->mainWindowShortcuts.remove( m_shortcutForm.at(i)->actionName() );
+        m_settings->mainWindowShortcuts.insert( m_shortcutForm.at(i)->actionName(), m_shortcutForm.at(i)->readShortcut() );
     }
 }
 
@@ -133,6 +133,9 @@ ShortcutForm::~ShortcutForm() {
 }
 QKeySequence ShortcutForm::readShortcut() {
     return QKeySequence( m_lineEdit->text() );
+}
+QString ShortcutForm::actionName() {
+    return m_actionName;
 }
 void ShortcutForm::defaultValue() {
     m_lineEdit->setText( m_defaultValue.toString() );

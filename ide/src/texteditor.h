@@ -42,31 +42,55 @@ class TextEditor;
 //   TextEditor   //
 ////////////////////
 
+/*!
+\brief A better document editor
+
+Contained by a TextStd.
+*/
 class TextEditor : public QEditor
 {
 public:
     TextEditor(TextStd* p);
 
+    /*! Returns last sent cursor. */
     QDocumentCursor lastSentCursor() const;
+    /*! Returns the cursor representing the read-only limit. */
     QDocumentCursor limitCursor() const;
+    /*! \brief Add a cursor to the list of sent cursors. */
     void sendCursor( QDocumentCursor c );
+    /*! \brief Forget the last sent cursor */
     void restorePreviousCursor();
+    /*! \brief Check if there are some sent cursors */
     bool hasSentCursors() const;
+    /*! \brief Restart the editor */
     void restart();
+    /*!
+    Search a sentence available for Coq.
+
+    \param limited if true, search before the current cursor position
+    */
     QDocumentCursor searchPhraseToSend( bool limited = false );
 
-    virtual bool protectedCursor( const QDocumentCursor& c ) const;
-    virtual bool processCursor(QDocumentCursor& c, QKeyEvent *e, bool& b);
+    /*! \brief Cut the selected text, if any. */
     virtual void cut();
 
+    /*! \brief Comment the selected text, if any. */
     void commentSelectedText();
+    /*! \brief Uncomment the selected text, if any. */
     void uncommentSelectedText();
+    /*! \brief Comment a given line. */
     void commentLine(int lineIndex);
+    /*! \brief Uncomment a given line. */
     void uncommentLine(int lineIndex);
+    /*! \brief Comment the selected lines, if any. */
     void commentSelectedLines();
+    /*! \brief Uncomment the selected lines, if any. */
     void uncommentSelectedLines();
 
-private:
+protected:
+    virtual bool protectedCursor( const QDocumentCursor& c ) const;
+    virtual bool processCursor(QDocumentCursor& c, QKeyEvent *e, bool& b);
+
     TextStd* textStd;
     QList<QDocumentCursor> sentCursors;
 };

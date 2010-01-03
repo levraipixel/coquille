@@ -48,54 +48,69 @@ namespace Ui {
 //   DebugPage   //
 ///////////////////
 
+/*!
+\brief A page in Ltac Debug Mode
+
+It is used in the debug dialog.
+*/
 class DebugPage : public QObject {
     Q_OBJECT
-    public:
-        DebugPage( DebugDialog *debugDialog, QTreeWidget *tree, QStackedWidget *stack );
-        DebugPage( DebugDialog *debugDialog, QTreeWidget *tree, QStackedWidget *stack, QString label, QString content );
-        ~DebugPage();
-        void fill( DebugPage *parent, QString label, QString content );
-    public slots:
-        void treeItemChanged( QTreeWidgetItem *previous, QTreeWidgetItem *next );
-        void stackItemChanged( int next );
 
-    public:
-        DebugDialog *m_debugDialog;
-        DebugPage *m_parent;
-        QTreeWidget *m_tree;
-        int m_level;
-        QTreeWidgetItem *m_node;
-        QStackedWidget *m_stack;
-        QTextEdit *m_page;
+public:
+    DebugPage( DebugDialog *debugDialog, QTreeWidget *tree, QStackedWidget *stack, QString label, QString content );
+    ~DebugPage();
+
+protected slots:
+    void treeItemChanged( QTreeWidgetItem *previous, QTreeWidgetItem *next );
+    void stackItemChanged( int next );
+
+protected:
+    DebugPage( DebugDialog *debugDialog, QTreeWidget *tree, QStackedWidget *stack );
+    void fill( DebugPage *parent, QString label, QString content );
+
+    DebugDialog *m_debugDialog;
+    DebugPage *m_parent;
+    QTreeWidget *m_tree;
+    int m_level;
+    QTreeWidgetItem *m_node;
+    QStackedWidget *m_stack;
+    QTextEdit *m_page;
 };
 
 /////////////////////
 //   DebugDialog   //
 /////////////////////
 
+/*!
+\brief A way to display the answers of Coq in Ltac Debug Mode
+
+It gives the user a Treeview to navigate between the answers, displayed on the right on different pages.
+*/
 class DebugDialog : public QDialog {
     Q_OBJECT
-    Q_DISABLE_COPY(DebugDialog)
+
 public:
     explicit DebugDialog( Coqtop *parent = 0);
     virtual ~DebugDialog();
+
+    /*! adds a new page to the dialog, with the label on the tree and the content on the page */
+    void addDebugPage( QString label, QString content );
+    /*! returns the pages */
+    QList<DebugPage*>* debugPages();
+    /*! returns the result of Debug Mode */
     QString result();
 
-public slots:
-    virtual void reject();
-    void addDebugPage( QString label, QString content );
+protected slots:
     void next();
     void previous();
-    void endDebug();
-
-signals:
-    void nextDebugStep();
 
 protected:
+    void endDebug();
+    virtual void reject();
+
     virtual void changeEvent(QEvent *e);
     virtual void closeEvent( QCloseEvent * event );
 
-public:
     Ui::DebugDialog *m_ui;
     Coqtop *m_coqtop;
     QList<DebugPage*> m_debugPages;

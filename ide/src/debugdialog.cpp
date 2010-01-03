@@ -75,15 +75,15 @@ DebugPage::DebugPage( DebugDialog *debugDialog, QTreeWidget *tree, QStackedWidge
 DebugPage::DebugPage( DebugDialog *debugDialog, QTreeWidget *tree, QStackedWidget *stack, QString label, QString content )
     : m_debugDialog(debugDialog), m_tree(tree), m_stack(stack)
 {
-    if( m_debugDialog->m_debugPages.size() <= 0 )
-        m_debugDialog->m_debugPages.append( new DebugPage( m_debugDialog, m_tree, m_stack ) );
+    if( m_debugDialog->debugPages()->size() <= 0 )
+        m_debugDialog->debugPages()->append( new DebugPage( m_debugDialog, m_tree, m_stack ) );
 
     QRegExp reg( "TcDebug \\((\\d+)\\)" );
     reg.indexIn( label );
     m_level = reg.cap(1).toInt();
 
 //    qDebug() << "other element";
-    DebugPage *parentPage = m_debugDialog->m_debugPages.last();
+    DebugPage *parentPage = m_debugDialog->debugPages()->last();
     while( parentPage && ( m_level <= parentPage->m_level ) )
         parentPage = parentPage->m_parent;
     fill( parentPage, label, content );
@@ -139,6 +139,10 @@ DebugDialog::~DebugDialog()
 
 void DebugDialog::addDebugPage( QString label, QString content ) {
     m_debugPages.append( new DebugPage( this, m_ui->pageTree, m_ui->pageStack, label, content ) );
+}
+
+QList<DebugPage*>* DebugDialog::debugPages() {
+    return &m_debugPages;
 }
 
 void DebugDialog::changeEvent(QEvent *e)

@@ -64,6 +64,7 @@ bool TabManager::hasOpenedDocuments() {
 void TabManager::addNewTab() {
     QString tabName = tr("New file");
     int index = addTab(tabName);
+    tabWidget->setCurrentIndex(index);
 
     emit tabOpen(tabName, index);
 }
@@ -85,14 +86,6 @@ void TabManager::openFile(const QString& fileName) {
 
         emit tabOpen(tabWidget->tabText(index), index);
     }
-}
-
-void TabManager::focusOn( const QString& title ) {
-    int index = 0;
-    while( ( index < tabWidget->count() ) && ( tabWidget->tabText(index).compare(title) != 0 ) )
-        index++;
-    if( index < tabWidget->count() )
-        tabWidget->setCurrentIndex( index );
 }
 
 void TabManager::load(const QString& fileName, int index) {
@@ -159,6 +152,7 @@ bool TabManager::close( bool addTab, int index ) {
         return true;
     }
     else {
+        tabWidget->setCurrentIndex( _index );
         switch( QMessageBox::question(this, tr("The document has modifications"), tr("Do you want to save the modifications ?"), QMessageBox::Abort | QMessageBox::Save | QMessageBox::Ignore ) ) {
             case QMessageBox::Ignore:
                 closeWithoutSave( addTab, _index );
@@ -286,8 +280,6 @@ int TabManager::addTab(const QString& name) {
     TextStd* textStd = new TextStd( this, m_settings );
     int index = tabWidget->addTab(textStd, name);
 
-    connect(textStd, SIGNAL(displayStatusBar(QString)), this, SIGNAL(displayStatusBar(QString)));
-    connect(textStd, SIGNAL(displayStatusBar(QString)), this, SIGNAL(displayStatusBar(QString)));
     connect(textStd, SIGNAL(contentModified(bool)), this, SLOT(onDocumentModified(bool)));
 
     return index;

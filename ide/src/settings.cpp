@@ -107,6 +107,9 @@ void Settings::resetToDefaultValues() {
     setShortcut( "quit", QKeySequence( "Ctrl+Q" ) );
     setShortcut( "redo", QKeySequence( "Ctrl+Shift+Z" ), true );
     setShortcut( "replace", QKeySequence( "Ctrl+H" ) );
+#ifdef TERMINAL
+    setShortcut( "restartTerminal", QKeySequence( "Meta+F12" ) );
+#endif
     setShortcut( "save", QKeySequence( "Ctrl+S" ) );
     setShortcut( "saveAll", QKeySequence( "Ctrl+Alt+S" ) );
     setShortcut( "saveAs", QKeySequence( "Ctrl+Shift+S" ) );
@@ -116,15 +119,15 @@ void Settings::resetToDefaultValues() {
     setShortcut( "send", QKeySequence( "Meta+Ctrl+Down" ), true );
     setShortcut( "sendAll", QKeySequence( "Meta+Ctrl+PgDown" ), true );
     setShortcut( "sendToCursor", QKeySequence( "Meta+Ctrl+Space" ), true );
+#ifdef TERMINAL
+    setShortcut( "terminal", QKeySequence( "Meta+Ctrl+F12" ) );
+#endif
     setShortcut( "uncomment", QKeySequence( "Ctrl+Shift+*" ) );
     setShortcut( "uncommentLines" );
     setShortcut( "undo", QKeySequence( "Ctrl+Z" ), true );
     setShortcut( "unindent", QKeySequence( "Ctrl+Shift+I" ) );
     setShortcut( "unsend", QKeySequence( "Meta+Ctrl+Up" ), true );
     setShortcut( "unsendAll", QKeySequence( "Meta+Ctrl+PgUp" ), true );
-#ifdef TERMINAL
-    setShortcut( "terminal", QKeySequence( "Meta+Ctrl+F12" ) );
-#endif
 
     textStdScrollCursorOnSend = true;
     textStdLatexMode = true;

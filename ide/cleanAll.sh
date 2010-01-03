@@ -8,6 +8,10 @@ rm coquille.pro.user
 rm Makefile*
 rm *~
 
+cd doc
+    rm -r *
+cd ../
+
 cd lib
   rm -r .moc
   rm libqcodeedit.a

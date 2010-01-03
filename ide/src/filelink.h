@@ -41,46 +41,68 @@ class FilesLinkList;
 //   FileLink   //
 //////////////////
 
+/*! \brief A representation of a file
+
+It provides an easy way to display it in a list, such as a list of opened documents, or a list of recently edited documents.
+*/
 class FileLink : public QFileInfo {
-    public:
-        FileLink();
-        FileLink( const QString & file );
-        ~FileLink();
+public:
+    FileLink();
+    FileLink( const QString & file );
+    ~FileLink();
 
-        QString name();
-        bool operator==( FileLink &other ) const;
-        void setFullDisplayed( bool full = false );
+    /*! Chooses whether the name has to short or full */
+    void setFullDisplayed( bool full = false );
+    /*! returns the name of the file */
+    QString name();
+    /*! returns the short name of the file */
+    QString basicDisplayName();
+    /*! returns the full name fo the file */
+    QString fullDisplayName();
 
-        QString basicDisplayName();
-        QString fullDisplayName();
+    /*! compares 2 FileLinks by their short names */
+    bool operator==( FileLink &other ) const;
 
-    private:
-        bool m_displayFull;
+protected:
+    bool m_displayFull;
 };
 
 //////////////////////
 //   FileLinkList   //
 //////////////////////
 
+/*! \brief A convenient file list */
 class FilesLinkList {
-    public:
-        FilesLinkList( int size );
-        ~FilesLinkList();
+public:
+    FilesLinkList( int size );
+    ~FilesLinkList();
 
-        QStringList toPathList();
-        QStringList toDisplayNameList();
-        bool isEmpty();
-        FileLink* first();
-        FileLink* at( int index );
-        int size();
-        void clear();
-        void addFile( QString path );
-        void refreshDisplay( QString basicDisplayName );
-        void rmFile( QString path, bool refresh = true );
+    /*! \brief Add a file to the list. */
+    void addFile( QString path );
+    /*! Return true if the list is empty. */
+    bool isEmpty();
+    /*! Return the first file of the list. */
+    FileLink* first();
+    /*! \brief Clear the list. */
+    void clear();
+    /*! \brief The number of files in the list */
+    int size();
+    /*!
+    The file at a given position.
 
-    private:
-        int m_maxSize;
-        QList<FileLink*> m_recentFiles;
+    \param index The position of the file in the list
+    */
+    FileLink* at( int index );
+    /*! A list of paths to the files */
+    QStringList toPathList();
+
+protected:
+    QStringList toDisplayNameList();
+    void refreshDisplay( QString basicDisplayName );
+    void rmFile( QString path, bool refresh = true );
+
+    int m_maxSize;
+    QList<FileLink*> m_recentFiles;
 };
 
 #endif // FILELINK_H

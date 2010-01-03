@@ -22,6 +22,16 @@
 //C++ Libs
 
 //Qt Libs
+#include <QCloseEvent>
+#include <QComboBox>
+#include <QDebug>
+#include <QDir>
+#include <QFileDialog>
+#include <QFileSystemModel>
+#include <QListWidget>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QTreeView>
 
 //Project Libs
 #ifdef TERMINAL
@@ -92,27 +102,17 @@ MainWindow::MainWindow( Settings *settings )
 /***************************/
 
 #ifdef TERMINAL
-    m_terminalDock = new QDockWidget( ui->centralWidget );
+    m_terminalDock = new QDockWidget( this );
     m_terminalDock->setFeatures(QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable);
 
-    restartTerminal();
-
-    ui->verticalLayout->addWidget( m_terminalDock );
-
-    m_actionTerminal = new QAction(ui->menuDisplay);
-    m_actionTerminal->setCheckable(true);
-    m_actionTerminal->setText( tr( "Terminal" ) );
-    ui->menuDisplay->addAction( m_actionTerminal );
-
-    m_actionRestartTerminal = new QAction(ui->menuDisplay);
-    m_actionRestartTerminal->setText( tr( "Restart Terminal" ) );
-    ui->menuDisplay->addAction( m_actionRestartTerminal );
-
-    connect( m_actionTerminal, SIGNAL(toggled(bool)), this, SLOT(actionTerminal_toggled(bool)) );
-    connect( m_actionRestartTerminal, SIGNAL(triggered()), this, SLOT(restartTerminal()) );
+//    MainWindowClass->addDockWidget(QDockWidgetArstatic_cast<Qt::DockWidgetArea>(1), dockWidget5);
+//    ui->verticalLayout->addDockWidget( m_terminalDock );
+    on_actionTerminal_toggled( ui->actionTerminal->isChecked() );
     connect( m_terminalDock, SIGNAL(visibilityChanged(bool)), this, SLOT(showTerminal(bool)) );
+//    on_actionRestartTerminal_triggered();
 
-    actionTerminal_toggled( m_actionTerminal->isChecked() );
+    ui->actionTerminal->setVisible( true );
+    ui->actionRestartTerminal->setVisible( true );
 #endif
 
     on_actionOpenedDocuments_toggled( ui->actionOpenedDocuments->isChecked() );
@@ -130,7 +130,7 @@ MainWindow::MainWindow( Settings *settings )
 
     QIcon insertTacticIcon;
     insertTacticIcon.addFile(QString::fromUtf8(":/IconPrefix/images/insertText.svg"), QSize(), QIcon::Normal, QIcon::Off);
-    QAction* tacticsAction = ui->toolBarCoq->addAction( QtIconLoader::icon("insert-text", insertTacticIcon), "" );
+    ui->toolBarCoq->addAction( QtIconLoader::icon("insert-text", insertTacticIcon), "" );
     ui->toolBarCoq->addWidget( tactics );
 
     connect(tactics, SIGNAL(activated(QString)), this, SLOT(insertText(QString)));
@@ -153,7 +153,6 @@ MainWindow::MainWindow( Settings *settings )
 
     connect( ui->actionQuit, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()) );
     connect( m_tabManager, SIGNAL(displayDocName(QString)), this, SLOT(displayDocName(QString)) );
-    connect( m_tabManager, SIGNAL(displayStatusBar(QString)), ui->statusBar, SLOT(showMessage(QString)) );
     connect( m_tabManager, SIGNAL(contentModified(bool)), this, SLOT(setWindowModified(bool)) );
     connect( ui->dockFileBrowser, SIGNAL(visibilityChanged(bool)), this, SLOT(showFileBrowser(bool)) );
     connect( ui->dockOpenedDocuments, SIGNAL(visibilityChanged(bool)), this, SLOT(showOpenedDocuments(bool)) );
@@ -168,10 +167,6 @@ MainWindow::MainWindow( Settings *settings )
 
 MainWindow::~MainWindow() {
     delete ui;
-}
-
-QList<QAction*> MainWindow::actions() {
-    return m_actions.values();
 }
 
 QAction* MainWindow::getAction( QString name ) {
@@ -212,9 +207,8 @@ void MainWindow::setActions() {
     m_actions.insert( "sendAll", ui->actionSendAll );
     m_actions.insert( "sendToCursor", ui->actionSendToCursor );
     m_actions.insert( "settings", ui->actionSettings );
-#ifdef TERMINAL
-    m_actions.insert( "terminal", m_actionTerminal );
-#endif
+    m_actions.insert( "terminal", ui->actionTerminal );
+    m_actions.insert( "restartTerminal", ui->actionRestartTerminal );
     m_actions.insert( "uncomment", ui->actionUncomment );
     m_actions.insert( "uncommentLines", ui->actionUncommentLines );
     m_actions.insert( "undo", ui->actionUndo );
@@ -335,7 +329,7 @@ void MainWindow::setIcons() {
 #ifdef TERMINAL
     QIcon terminalIcon;
     terminalIcon.addFile(QString::fromUtf8(":/IconPrefix/images/terminal.svg"), QSize(), QIcon::Normal, QIcon::Off);
-    m_actionRestartTerminal->setIcon(QtIconLoader::icon("utilities-terminal", terminalIcon));
+    ui->actionRestartTerminal->setIcon(QtIconLoader::icon("utilities-terminal", terminalIcon));
 #endif
 
     QIcon recentIcon;
@@ -536,7 +530,7 @@ void MainWindow::on_actionRestart_triggered() {
 
 /* Display */
 #ifdef TERMINAL
-void MainWindow::actionTerminal_toggled(bool checked) {
+void MainWindow::on_actionTerminal_toggled(bool checked) {
     m_terminalDock->setHidden(!checked);
 }
 #endif
@@ -581,24 +575,54 @@ void MainWindow::readSettings() {
 
 #ifdef TERMINAL
 void MainWindow::showTerminal( bool visible ) {
-    m_actionTerminal->setChecked(visible);
+    ui->actionTerminal->setChecked(visible);
 }
-void MainWindow::restartTerminal() {
-    delete m_terminalDock->widget();
+void MainWindow::on_actionRestartTerminal_triggered() {
+    qDebug() << "restart terminal";
 
-    QTermWidget *terminal = new QTermWidget();
+    m_terminalDock->~QDockWidget();
+    if( m_terminalDock )
+        delete m_terminalDock;
+    m_terminalDock = new QDockWidget( this );
+    m_terminalDock->setFeatures(QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable);
+
+//    MainWindowClass->addDockWidget(QDockWidgetArstatic_cast<Qt::DockWidgetArea>(1), dockWidget5);
+//    ui->verticalLayout->addDockWidget( m_terminalDock );
+    on_actionTerminal_toggled( ui->actionTerminal->isChecked() );
+    connect( m_terminalDock, SIGNAL(visibilityChanged(bool)), this, SLOT(showTerminal(bool)) );
+    on_actionRestartTerminal_triggered();
+
+    ui->actionTerminal->setVisible( true );
+    ui->actionRestartTerminal->setVisible( true );
+
+
+
+
+    qDebug() << "forget previous terminal";
+    m_terminalDock->setWidget(0);
+    qDebug() << "delete previous terminal";
+
+    qDebug() << "create new terminal";
+
+//    m_terminal = new QTermWidget();
+//    qDebug() << "new terminal is " << m_terminal;
 
 //    QFont font = QApplication::font();
 //    font.setFamily("Terminus");
 //    font.setPointSize(11);
 //
-//    terminal->setTerminalFont(font);
+//    m_terminal->setTerminalFont(font);
 
-    //console->setColorScheme(COLOR_SCHEME_BLACK_ON_LIGHT_YELLOW);
+//    console->setColorScheme(COLOR_SCHEME_BLACK_ON_LIGHT_YELLOW);
 
-    terminal->setScrollBarPosition(QTermWidget::ScrollBarRight);
+//    m_terminal->setScrollBarPosition(QTermWidget::ScrollBarRight);
 
-    m_terminalDock->setWidget( terminal );
+    qDebug() << "dock terminal is " << m_terminalDock->widget();
+//    m_terminalDock->setWidget( m_terminal );
+    qDebug() << "dock terminal is " << m_terminalDock->widget();
+    addDockWidget( Qt::BottomDockWidgetArea, m_terminalDock );
+
+//    ui->verticalLayout->insertWidget( 0, m_terminal );
 }
 #endif
 

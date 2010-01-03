@@ -53,84 +53,104 @@ namespace Ui {
 //   ShortcutForm   //
 //////////////////////
 
+/*!
+\brief A representation of a form to modify a shortcut for an action
+
+It provides an easy way to display the form and read its values.
+*/
 class ShortcutForm : public QObject {
     Q_OBJECT
-    public:
-        ShortcutForm( QString actionName, QString actionText, QKeySequence defaultValue, QGridLayout *shortcutsForm, int line );
-        ~ShortcutForm();
-        QKeySequence readShortcut();
-    public slots:
-        void defaultValue();
 
-    public:
-        SettingsDialog *m_settingsDialog;
-        QString m_actionName;
-        QKeySequence m_defaultValue;
-        QGridLayout *m_shortcutsForm;
-        int m_line;
-        QLabel *m_label;
-        QLineEdit *m_lineEdit;
-        QPushButton *m_pushButton;
+public:
+    ShortcutForm( QString actionName, QString actionText, QKeySequence defaultValue, QGridLayout *shortcutsForm, int line );
+    ~ShortcutForm();
+
+    /*! returns the content of the form */
+    QKeySequence readShortcut();
+    /*! returns the name of the action represented by this form */
+    QString actionName();
+
+protected slots:
+    void defaultValue();
+
+protected:
+    SettingsDialog *m_settingsDialog;
+    QString m_actionName;
+    QKeySequence m_defaultValue;
+    QGridLayout *m_shortcutsForm;
+    int m_line;
+    QLabel *m_label;
+    QLineEdit *m_lineEdit;
+    QPushButton *m_pushButton;
 };
 
 //////////////////
 //   FontForm   //
 //////////////////
 
+/*!
+\brief A representation of a form to modify the font of a widget
+
+It provides an easy way to display the form and apply its values.
+*/
 class FontForm : public QObject {
     Q_OBJECT
-    public:
-        FontForm( QWidget *widget, QString label, QFont defaultValue, QGridLayout *fontsForm, int line );
-        ~FontForm();
-    public slots:
-        void defaultValue();
-        void changeFont(QFont font);
-        void refreshSize();
-        void changeSize( QString size );
-        void refreshBold();
-        void changeBold( bool b );
-        void refreshItalic();
-        void changeItalic( bool b );
 
-    public:
-        QLabel *m_label;
-        QWidget *m_widget;
-        QFont m_defaultValue;
-        QGridLayout *m_fontsForm;
-        QFontComboBox *m_family;
-        QCheckBox *m_bold;
-        QCheckBox *m_italic;
-        QComboBox *m_size;
-        int m_line;
-        QPushButton *m_pushButton;
+public:
+    FontForm( QWidget *widget, QString label, QFont defaultValue, QGridLayout *fontsForm, int line );
+    ~FontForm();
+
+protected slots:
+    void defaultValue();
+    void changeFont(QFont font);
+    void changeSize( QString size );
+    void changeBold( bool b );
+    void changeItalic( bool b );
+
+protected:
+    void refreshSize();
+    void refreshBold();
+    void refreshItalic();
+
+    QLabel *m_label;
+    QWidget *m_widget;
+    QFont m_defaultValue;
+    QGridLayout *m_fontsForm;
+    QFontComboBox *m_family;
+    QCheckBox *m_bold;
+    QCheckBox *m_italic;
+    QComboBox *m_size;
+    int m_line;
+    QPushButton *m_pushButton;
 };
 
 ////////////////////////
 //   SettingsDialog   //
 ////////////////////////
 
+/*! \brief A dialog box displaying all the settings provided to the user */
 class SettingsDialog : public QDialog {
     Q_OBJECT
-    Q_DISABLE_COPY(SettingsDialog)
+
 public:
     explicit SettingsDialog( Settings *parent );
     virtual ~SettingsDialog();
 
+protected slots:
+    virtual void accept();
+    void apply();
+
+protected:
     void addShortcutForm( QString actionName, QKeySequence defaultValue );
     void addFontForm( QWidget *widget, QString label );
     void writeShortcuts();
     void readShortcuts();
 
-public slots:
-    virtual void accept();
-    void apply();
-
-protected:
     virtual void changeEvent(QEvent *e);
+
     QList<ShortcutForm*> m_shortcutForm;
     QList<FontForm*> m_fontsForm;
 
-private:
     Ui::SettingsDialog *m_ui;
     Settings *m_settings;
 };

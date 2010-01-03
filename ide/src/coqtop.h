@@ -49,11 +49,15 @@ using namespace std;
 //   Answer   //
 ////////////////
 
+/*! \brief A Coq answer */
 class Answer {
 public:
     Answer( bool _accepted, QString _stdOut = QString(), QString _stdErr = QString() );
+    /*! if the answer is : accepted */
     bool accepted;
+    /*! content of StdOut */
     QString stdOut;
+    /*! content of StdErr */
     QString stdErr;
 };
 
@@ -61,11 +65,15 @@ public:
 //   DebugAnswer   //
 /////////////////////
 
+/*! \brief A debug step return */
 class DebugAnswer {
 public:
     DebugAnswer( bool _isDebug, QString _label, QString _content );
+    /*! if the answer is still in debug mode */
     bool isDebug;
+    /*! the title of the answer */
     QString label;
+    /*! the content of the answer */
     QString content;
 };
 
@@ -73,40 +81,51 @@ public:
 //   Except   //
 ////////////////
 
+/*! \brief A custom exception */
 class Except {};
 
 ////////////////
 //   Coqtop   //
 ////////////////
 
+/*!
+\brief An interface with Coq
+
+It allows the user to send sentences and receive answers.
+*/
 class Coqtop : public QObject {
     Q_OBJECT
+
 public:
     Coqtop(TextStd* parent = 0);
-    Answer *sendStdIn( const QString &text );
-    void undoQed();
-    Answer* undo( const QString &text );
-    Answer* LtacDebug( QString label, QString content );
-    DebugAnswer* LtacDebugNext();
-    void kill();
-    void restart();
+
+    /*! returns the Start Message of the process used to dialog with */
     QString startMessage();
+    /*! send to Coq */
+    Answer *sendStdIn( const QString &text );
+    /*! undo last operation */
+    Answer* undo( const QString &text );
+    /*! asks for next step in debug mode */
+    DebugAnswer* LtacDebugNext();
+    /*! kills the process */
+    void kill();
+    /*! restarts the process */
+    void restart();
 
-signals:
-    void signalDebug( QString label, QString content );
-    void signalStartDebug( QString label, QString content );
-    void signalEndDebug( Answer *answer );
+protected slots:
+    void dontStart();
 
-private:
+protected:
+    Answer* traiteSortie( QString value = "" );
+
+    void undoQed();
+    Answer* LtacDebug( QString label, QString content );
+
     bool modePreuve();
     TextStd* m_textStd;
     QProcess* m_processus;
     QString m_startMessage;
     DebugDialog *m_debugDialog;
-
-private slots:
-    Answer* traiteSortie( QString value = "" );
-    void dontStart();
 };
 
 #endif // COQTOP_H

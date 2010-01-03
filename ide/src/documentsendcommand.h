@@ -42,24 +42,32 @@ class DocumentSendCommand;
 //   DocumentSendCommand   //
 /////////////////////////////
 
-class DocumentSendCommand : public QDocumentCommand
-{
-    public:
-        enum SendFlag {
-            Next = 0,
-            Previous = 1
-        };
-        DocumentSendCommand( TextStd* t, QDocument* doc, SendFlag f, bool limited = false );
-        virtual ~DocumentSendCommand();
+/*! \brief A representation of the actions Next and Previous
 
-        virtual bool mergeWith(const QUndoCommand *command);
+This is a convenient way for the user to Undo / Redo one of these actions.
+*/
+class DocumentSendCommand : public QDocumentCommand {
+public:
+    /*! Represents what the action really was */
+    enum SendFlag {
+        Next = 0,
+        Previous = 1
+    };
+    DocumentSendCommand( TextStd* t, QDocument* doc, SendFlag f, bool limited = false );
+    virtual ~DocumentSendCommand();
 
-        virtual void redo();
-        virtual void undo();
-    protected:
-        TextStd* textStd;
-        SendFlag m_send;
-        bool m_limited;
+    /*! Prevents from merging this action with another */
+    virtual bool mergeWith(const QUndoCommand *command);
+
+    /*! does the action */
+    virtual void redo();
+    /*! undoes the action */
+    virtual void undo();
+
+protected:
+    TextStd* textStd;
+    SendFlag m_send;
+    bool m_limited;
 };
 
 #endif // DOCUMENTSENDCOMMAND_H

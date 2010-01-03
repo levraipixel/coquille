@@ -157,7 +157,6 @@ Answer* Coqtop::traiteSortie( QString value ) {
     int debugPos = chaine.indexOf("TcDebug", 0, Qt::CaseInsensitive );
     if( debugPos > -1 ) {
         return LtacDebug( chaine.mid(debugPos), chaine.left(debugPos) );
-//        emit signalStartDebug( chaine.mid(debugPos), chaine.left(debugPos) );
     }
     else {
         if( chaine.indexOf("error", 0, Qt::CaseInsensitive ) > -1 ) {

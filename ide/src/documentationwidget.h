@@ -43,11 +43,15 @@ namespace Ui {
 //   DocumentationWidget   //
 /////////////////////////////
 
+/*! \brief A pannel displaying documentation for a given keyword / tactic */
 class DocumentationWidget : public QWidget {
     Q_OBJECT
+
 public:
     DocumentationWidget(QWidget *parent = 0);
     ~DocumentationWidget();
+
+    /*! shows the documentation for keyword */
     void showDocumentationAbout( QString keyword );
 
 protected slots:
@@ -56,7 +60,6 @@ protected slots:
 protected:
     void changeEvent(QEvent *e);
 
-private:
     Ui::DocumentationWidget *m_ui;
 };
 
