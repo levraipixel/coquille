@@ -133,25 +133,31 @@
     \subsection{Au niveau du dialogue avec \coq}
     
         Ce furent les principaux problèmes, voici ceux qui nous ont pris le plus de temps.
-        \paragraph*{La discrimination des erreurs\\}
+
+        \subsubsection{La discrimination des erreurs}
+
         	Une réponse de \coqtop, qu'elle soit bonne ou mauvaise, est donnée sur \stdout. Seul le prompt passe par \stderr.
         	Et puisque \coqtop ne renvoie aucun autre signal, impossible \textit{a priori} de savoir si une réponse est une erreur ou pas.
-        \paragraph*{Les réponses vides\\}
+
+        \subsubsection{Les réponses vides}
+
         	Certaines commandes de Galina ne renvoient absolument rien quand elles fonctionnent, et une erreur quand elles échouent.
         	\begin{itemize}
         		\item Si on attends une réponse pour pouvoir la discriminer en erreur ou non, on peut attendre très longtemps
         		\item Si on choisit un temps maximal d'attente, rien ne nous dit qu'une commande ne va pas prendre exactement 5 seconde de plus que ce laps de temps.
         	\end{itemize}
-    	\paragraph*{L'annulation\\}
+
+    	\subsubsection{L'annulation}
+
     	    Un véritable casse-tête $\ldots$
     	    
     	    Premièrement, la commande d'annulation d'une commande de base n'est pas la même selon que l'on est au sein d'une preuve ou non.
     	    
     	    Ensuite, certaines commandes sont purement inutiles et sont ignorées par \coqtop.
-    	    C'est le cas du mot clef \coqcode{Proof.}, qu'il ne faut surtout pas tenter d'annuler sous peine d'annuler la commande précédente.
+    	    C'est le cas de la commande \coqcode{Proof.}, qu'il ne faut surtout pas tenter d'annuler sous peine d'annuler la commande précédente.
     	    
     	    Enfin, dans certains cas, il est tout simplement impossible actuellement d'annuler une seule opération.
-    	    D'après ces messieurs de l'INRIA eux-même, le seul moyen d'annuler la commande \coqcode{Qed.} validant un théorème nommé \coqcode{truc}, par exemple, est de faire \coqcode{Reset truc}, puis de renvoyer une-à-une les commandes situées entre la définition de \coqcode{truc} et le fameux \coqcode{Qed.}.
+    	    D'après ces messieurs de l'INRIA eux-même, le seul moyen d'annuler la commande \coqcode{Qed.} validant un théorème nommé \coqcode{truc}, par exemple, est de faire \coqcode{Reset truc.}, puis de renvoyer une-à-une les commandes situées entre la définition de \coqcode{truc} et le fameux \coqcode{Qed}.
     	    Si jamais la preuve est longue, ou comporte des calculs longs pour l'ordinateur, c'est complètement insensé.
     	    
     	    Pire encore, dans le cas de preuves imbriquées, \coqcode{Reset truc} annule toutes les preuves jusqu'à revenir en mode Galina.
@@ -173,45 +179,54 @@
         \subsubsection{Au niveau du code}
         
             \begin{itemize}
-                \item Marquer les numéros de ligne
-                \item Le ``code folding" : replier des lignes de code en une seule pour améliorer la lisibilité
+                \item Marquer les numéros de ligne (cf. Fig \ref{fig:lines})
+                \item Le ``code folding" : replier des lignes de code en une seule pour améliorer la lisibilité (cf. Fig \ref{fig:folding})
                 \item Des raccourcis clavier plus ``classiques", et personnalisables
-                \item La possibilité de faire des ``Redo" après des ``Undo"
+                \item La possibilité de faire des ``Redo" après des ``Undo" (cf. Fig \ref{fig:redo})
             \end{itemize}
             \begin{figure}[ht]
-	            \centering
-	            \includegraphics[scale=0.5]{ide_images/lines.png}
-	            \caption{La numérotation des lignes}
-            \end{figure}
-            \begin{figure}[ht]
-	            \centering
-	            \includegraphics[scale=0.5]{ide_images/folding.png}
-	            \caption{Le ``code folding"}
-            \end{figure}
-            \begin{figure}[ht]
-	            \centering
-	            \includegraphics[scale=0.5]{ide_images/redo.png}
-	            \caption{Le ``Redo"}
+                \begin{minipage}[b]{0.3\linewidth}
+                    \centering
+                    \includegraphics[scale=0.5]{ide_images/lines.png}
+                    \caption{La numérotation des lignes}
+                    \label{fig:lines}
+                \end{minipage}
+                \hfill
+                \begin{minipage}[b]{0.3\linewidth}   
+	                \centering
+	                \includegraphics[scale=0.5]{ide_images/folding.png}
+	                \caption{Le ``code folding"}
+	                \label{fig:folding}
+                \end{minipage}
+                \hfill
+                \begin{minipage}[b]{0.3\linewidth}   
+	                \centering
+	                \includegraphics[scale=0.5]{ide_images/redo.png}
+	                \caption{Le ``Redo"}
+	                \label{fig:redo}
+	            \end{minipage}
             \end{figure}
             
         \subsubsection{Au niveau du langage}
 
             \begin{itemize}
-                \item La gestion de ``Ltac Debug".
+                \item La gestion de ``Ltac Debug" (cf. Fig \ref{fig:ltacdebug})
                 C'est une interface que nous avons mis au point et qui permet de voir en détail l'exécution d'une tactique en \coq, avec une interface de parcours des résultats
                 \item Gérer plusieurs instances de \coqtop, une par onglet ouvert, sans annuler tout à chaque changement d'onglet
-                \item Un affichage des résultats en version classique ou $\LaTeX$-like
+                \item Un affichage des résultats en version classique ou $\LaTeX$-like (cf. Fig \ref{fig:unicode})
                 \item L'action « Send / Unsend » d'envoi d'une commande est considérée comme une action comme les autres, donc « Undo / Redo » peut agir dessus
             \end{itemize}
             \begin{figure}[ht]
 	            \centering
 	            \includegraphics[scale=0.4]{ide_images/ltacdebug.png}
 	            \caption{Le mode Ltac Debug}
+	            \label{fig:ltacdebug}
             \end{figure}
             \begin{figure}[ht]
 	            \centering
 	            \includegraphics[scale=0.5]{ide_images/unicode.png}
 	            \caption{L'affichage $\LaTeX$-like}
+	            \label{fig:unicode}
             \end{figure}
             
     \subsection{Ce que \coqide fait et que Coquille ne fait pas (encore)}
@@ -241,8 +256,8 @@
         
             \begin{itemize}
                 \item La gestion de l'aide
-                \item La gestion des « Write State / Restore State ».
-                En théorie, la commande \coqcode{write State} est censée sauvegarder l'état de l'interpréteur (variables, commandes envoyées, etc), tandis que \coqcode{Restore State} est censé restaurer cet état.
+                \item La gestion des « \coqcode{Write State} / \coqcode{Restore State} ».
+                En théorie, la commande \coqcode{Write State} est censée sauvegarder l'état de l'interpréteur (variables, commandes envoyées, etc), tandis que \coqcode{Restore State} est censé restaurer cet état.
 			    En pratique, \coqcode{Restore State} ne marche pas dans \coqtop, ce qui nous empêche de l'utiliser.
             \end{itemize}
 
