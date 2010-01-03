@@ -1,0 +1,72 @@
+\documentclass[slidetop]{beamer}
+\usetheme{Copenhagen}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[francais,french]{babel}
+\usepackage{fontenc}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{amssymb}
+\usepackage{default}
+
+\newcommand{\coq}{Coq~}
+\newcommand{\coqtop}{Coqtop~}
+\newcommand{\coqide}{CoqIDE~}
+\newcommand{\coquille}{\textsc{Coquille}~}
+\newcommand{\coqcode}[1]{\texttt{#1}}
+
+\date{Lundi 4 Janvier 2010}
+\title{Rapport du projet \coquille}
+\author{M1 Informatique Fondamentale - ENS Lyon}
+
+\begin{document}
+
+\begin{frame}[plain]
+    \maketitle
+
+    \begin{figure}[ht]
+        \begin{minipage}[b]{0.4\linewidth}
+            \centering
+            \includegraphics[width=0.4\textwidth]{../images/common/poussin.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[b]{0.4\linewidth}   
+            \centering
+            \includegraphics[scale=0.1]{../images/common/ens.jpg}
+        \end{minipage}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[plain]
+    \tableofcontents
+\end{frame}
+
+\section{Le projet Coquille en g\'en\'eral}
+\input{presentation.tex}
+
+\section{Le WP preuves}
+\input{proofs.tex}
+
+\section{Le WP IDE}
+\input{ide.tex}
+
+\section{Le WP Apprentissage}
+\input{apprentissage.tex}
+
+\section{Le WP communication}
+\input{communication.tex}
+
+\section{Bibliographie}
+
+\begin{frame}{Bibliographie} 
+ \begin{itemize}
+\item [1] http://coq.inria.fr/stdlib/ [la coq standard library]
+\item [2] http://c-corn.cs.ru.nl/documentation/toc.html% [les modules disponibles dans Corn]  AH? Parce qu'on a utilisé C-Corn ?
+\item [3] http://graal.ens-lyon.fr/coquille/
+\item [4] http://perso.ens-lyon.fr/jeanmarie.madiot/coquille/forum % Utile ?
+\item [5] http://coquille.wikispot.org/ %% OBSOLÈTE ! Et très utile ...
+\item [6] Artifical intelligence, a modern approach, S. Russel P. Norvig
+\end{itemize}
+\end{frame}
+
+\end{document}
