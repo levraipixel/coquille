@@ -1,4 +1,4 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[a4paper,10pt]{report}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8x]{inputenc}
@@ -31,31 +31,46 @@
  % poussin.png: 256x256 pixel, 90dpi, 7.23x7.23 cm, bb=0 0 205 205
 \end{center}
 \end{figure}
+
 \maketitle
+
 \newpage
 
 \tableofcontents
+
 \newpage
 
-\part{Le projet Coquille en g\'en\'eral}
+\chapter{Le projet Coquille en g\'en\'eral}
 
 \input{presentation.tex}
 
-\part{Le WP preuves}
+\newpage
+
+\chapter{Le WP preuves}
 
 \input{proofs.tex}
 
-\part{Le WP IDE}
+\newpage
+
+\chapter{Le WP IDE}
 
 \input{ide.tex}
 % \input{apprentissage.tex}
+
+\newpage
+
+\chapter{Le WP communication}
+
+\input{communication.tex}
+
+\newpage
 
 \bibliographystyle{plain}
 \bibliography{main}
 
 \newpage
 
-\part{Annexe 1 : documentation de l'IDE}
+\chapter{Annexe 1 : documentation de l'IDE}
 
 %\includepdf[pages=1-]{../../ide/doc/latex/refman.pdf}
 
