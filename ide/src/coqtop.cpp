@@ -186,15 +186,18 @@ Answer* Coqtop::LtacDebug( QString label, QString content ) {
 }
 
 DebugAnswer* Coqtop::LtacDebugNext() {
-//    qDebug() << "coqtop << send next step";
+    qDebug() << "coqtop << send next step";
     m_processus->write( "\n" );
 
     m_processus->waitForReadyRead(-1);
     QString content( m_processus->readAllStandardOutput() );
-//    qDebug() << "result of step : " << content;
+    while( m_processus->bytesAvailable() )
+        content.append( m_processus->readAllStandardOutput() );
+    
+    qDebug() << "result of step : " << content;
     int debugPos = content.indexOf("TcDebug", 0, Qt::CaseInsensitive );
     if( debugPos < 0 ) {
-//        qDebug() << "coqtop << end of debug";
+        qDebug() << "coqtop << end of debug";
         return new DebugAnswer( false, "", QString( content ) );
     }
     else {

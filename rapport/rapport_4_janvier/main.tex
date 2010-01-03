@@ -7,18 +7,16 @@
 \usepackage{graphicx}
 \usepackage{fullpage}
 \usepackage{url}
+\usepackage{pdfpages}
 
 % \usepackage[dvips]{hyperref}
 \usepackage{amssymb}
 \usepackage{amsmath}
 
-\newcommand{\code}[1]{\texttt{#1}}
-
-\newcommand{\coquille}{\textsc{Coquille}}
-\newcommand{\Coq}{Coq}
-\newcommand{\CoqIde}{CoqIDE}
-\newcommand{\CoquilleIDE}{Coquille}
-\newcommand{\coqtop}{\texttt{coqtop}}
+\newcommand{\coq}{Coq~}
+\newcommand{\coqtop}{Coqtop~}
+\newcommand{\coqide}{CoqIDE~}
+\newcommand{\coquille}{\textsc{Coquille}~}
 \newcommand{\coqcode}[1]{\texttt{#1}}
 
 \date{4 janvier 2009}
@@ -39,7 +37,7 @@
 \tableofcontents
 \newpage
 
-\part{Le projet \coquille{} en g\'en\'eral}
+\part{Le projet Coquille en g\'en\'eral}
 
 \input{presentation.tex}
 
@@ -52,12 +50,13 @@
 \input{ide.tex}
 % \input{apprentissage.tex}
 
-\part{Le WP communication}
-
-\input{communication.tex}
-
-\newpage
 \bibliographystyle{plain}
 \bibliography{main}
+
+\newpage
+
+\part{Annexe 1 : documentation de l'IDE}
+
+%\includepdf[pages=1-]{../../ide/doc/latex/refman.pdf}
 
 \end{document}
