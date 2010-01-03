@@ -1,15 +1,15 @@
-\newcommand{\qcodeedit}{QCodeEdit~}
-\newcommand{\qtermwidget}{QTermWidget~}
-\newcommand{\stdout}{StdOut~}
-\newcommand{\stderr}{StdErr~}
+\newcommand{\qcodeedit}{QCodeEdit}
+\newcommand{\qtermwidget}{QTermWidget}
+\newcommand{\stdout}{StdOut}
+\newcommand{\stderr}{StdErr}
 
 \section{Contexte initial}
 
-    \subsection{État de l'art : \coqide}
+    \subsection{État de l'art : \coqide{}}
 
         \subsubsection{Pas vraiment user-friendly}
 
-        \coqide possède de nombreux défauts mineurs qui n'apparaissent pas au premier coup d'\oe{}il, mais après une utilisation fréquente de ce logiciel.
+        \coqide{} possède de nombreux défauts mineurs qui n'apparaissent pas au premier coup d'\oe{}il, mais après une utilisation fréquente de ce logiciel.
         On donne ici une liste de tels détails :
         \begin{itemize}
           \item L'impossibilité de fermer une fenêtre active : il faut sélectionner un autre onglet et effectuer une validation de code ;
@@ -27,15 +27,15 @@
 			
         \subsubsection{Très opaque}
 
-		En effet, le code de \coqide n'est pas très accessible, sa structure pas évidente, et il aurait probablement fallu plus de temps à le comprendre qu'à le développer. Plus exactement :
+		En effet, le code de \coqide{} n'est pas très accessible, sa structure pas évidente, et il aurait probablement fallu plus de temps à le comprendre qu'à le développer. Plus exactement :
 		\begin{itemize}
 			\item Il n'y a aucune information sur le code, à part une maigre trame de structure dans la documentation du code source, mais cela reste très léger
-			\item Peu modulaire : Il n'y a aucune séparation entre \coqide et le noyau de \coq, et \coqide n'a pas de structure propre indépendante de \coq. (cf. Les détails de la discussion avec Vincent Gross).	
+			\item Peu modulaire : Il n'y a aucune séparation entre \coqide{} et le noyau de \coq{}, et \coqide{} n'a pas de structure propre indépendante de \coq{}. (cf. Les détails de la discussion avec Vincent Gross).	
 		\end{itemize}
 		
 	\subsection{Les besoins du projet Coquille}
 
-		Mise à part la nécessité d'un IDE pour \coq, qui reprenne donc les principales fonctionnalités de \coqide à savoir l'édition et coloration, l'envoi d'instructions à \coqtop étape par étape et la récupération des résultats ou messages d'erreurs, nous sommes restés à l'écoute des attentes des autres Groupes de Travail (Work Package en Anglais (WP)) :
+		Mise à part la nécessité d'un IDE pour \coq{}, qui reprenne donc les principales fonctionnalités de \coqide{} à savoir l'édition et coloration, l'envoi d'instructions à \coqtop{} étape par étape et la récupération des résultats ou messages d'erreurs, nous sommes restés à l'écoute des attentes des autres Groupes de Travail (Work Package en Anglais (WP)) :
         
         \subsubsection{WP Apprentissage}
 
@@ -47,24 +47,24 @@
 		\end{itemize}
 			
 		\subsubsection{WP Preuves / Tactiques}
-			Ce groupe a fourni des librairies et des tactiques sous forme de fichiers en langage \coq directement utilisables par des commandes \coq, donc il n'y avait a priori aucune attente de la part de ce WP.
+			Ce groupe a fourni des librairies et des tactiques sous forme de fichiers en langage \coq{} directement utilisables par des commandes \coq{}, donc il n'y avait a priori aucune attente de la part de ce WP.
 
     \subsection{Que faire $\ldots$}
 
-        \subsubsection{Tenter de modifier \coqide ?}
+        \subsubsection{Tenter de modifier \coqide{} ?}
 
             Ce n'était clairement pas envisageable.
-            En effet, non seulement le code de \coqide est complètement opaque (il aurait fallu en comprendre la structure, les subtilités, gérer le dialogue avec \coq sans modularité) mais en plus cela ne nous semblait pas très formateur de reprendre son code.
-            On aurait pu certes reprendre \coqide et le structurer d'avantage, mais cela aurait été monstrueusement long.
+            En effet, non seulement le code de \coqide{} est complètement opaque (il aurait fallu en comprendre la structure, les subtilités, gérer le dialogue avec \coq{} sans modularité) mais en plus cela ne nous semblait pas très formateur de reprendre son code.
+            On aurait pu certes reprendre \coqide{} et le structurer d'avantage, mais cela aurait été monstrueusement long.
 			
         \subsubsection{Créer des plugins pour les éditeurs classiques ?}
 
-			Mise à part \coqide, il n'y a pas d'éditeur dédié à \coq. En admettant que l'on eût fait un plugin pour un éditeur classique (netbeans, code::blocks), il aurait été dûr de dialoguer avec \coqtop, et un plugin ne permet pas de faire un interpréteur. Or, il nous semble vital d'avoir un interpréteur à disposition lorsqu'on code en \coq.
+			Mise à part \coqide{}, il n'y a pas d'éditeur dédié à \coq{}. En admettant que l'on eût fait un plugin pour un éditeur classique (netbeans, code::blocks), il aurait été dûr de dialoguer avec \coqtop{}, et un plugin ne permet pas de faire un interpréteur. Or, il nous semble vital d'avoir un interpréteur à disposition lorsqu'on code en \coq{}.
 			
         \subsubsection{Coder un IDE \textit{from scratch} ?}
         
 			C'est l'alternative que nous avons choisie. 
-			Tout d'abord, il sera plus facile de bien structurer le code et de séparer le dialogue avec \coq.
+			Tout d'abord, il sera plus facile de bien structurer le code et de séparer le dialogue avec \coq{}.
 			Cela permet également d'intégrer facilement la communication avec les fonctionnalités proposées par l'apprentissage.
 			De même gérer des détails comme la mise en page, la coloration, le "folding" de preuves, nous paraît plus facile si on reprend l'IDE à zéro.
 			
@@ -101,17 +101,17 @@
 		\subsubsection{\qcodeedit}
 			
 			Nous avons passé beaucoup de temps à chercher une bibliothèque d'édition de texte fournissant un plugin de ``code folding".
-			Il s'est avéré qu'il en existe peu, et \qcodeedit est l'une d'entre-elles.
+			Il s'est avéré qu'il en existe peu, et \qcodeedit{} est l'une d'entre-elles.
 			Nous nous sommes aperçu ensuite que cette bibliothèque, très puissante, permet de faire bien d'autres choses, ce qui nous a beaucoup aidé.
 			
 		\subsubsection{\qtermwidget}
 			
-			Pour intégrer un terminal à l'IDE, ce fût un peu le même combat que pour trouver \qcodeedit.
+			Pour intégrer un terminal à l'IDE, ce fût un peu le même combat que pour trouver \qcodeedit{}.
 			Nous voulions un terminal qui puisse s'inclure dans un QWidget, et qui soit utilisable exactement comme un terminal UNIX.
 		
-    \subsection{Le dialogue avec \coq}
+    \subsection{Le dialogue avec \coq{}}
     
-		Le choix s'est tout simplement restreint à \coqtop, car nous n'en avions pas trouvé d'autre.
+		Le choix s'est tout simplement restreint à \coqtop{}, car nous n'en avions pas trouvé d'autre.
         
 \section{Les problèmes rencontrés}
 
@@ -121,7 +121,7 @@
         
     \subsection{Au niveau des bibliothèques}
     
-        Nous avons eu quelques petits problèmes de codage en utilisant la librairie \qcodeedit.
+        Nous avons eu quelques petits problèmes de codage en utilisant la librairie \qcodeedit{}.
 
         Premièrement, c'est une bibliothèque plutôt destinée à être installée par l'utilisateur indépendamment de toute compilation.
         Nous voulions en inclure directement le code source dans notre programme, il nous a donc fallu batailler ferme.
@@ -130,14 +130,14 @@
 
         Au passage, un grand merci à Hugues Luc Bruant (ENSIMAG), responsable de cette bibliothèque, dont les réponses à nos mails étaient toujours rapides, claires et utiles, ce qui nous a sans nul doute sauvé de nombreuses mauvaises situations.
 		
-    \subsection{Au niveau du dialogue avec \coq}
+    \subsection{Au niveau du dialogue avec \coq{}}
     
         Ce furent les principaux problèmes, voici ceux qui nous ont pris le plus de temps.
 
         \subsubsection{La discrimination des erreurs}
 
-        	Une réponse de \coqtop, qu'elle soit bonne ou mauvaise, est donnée sur \stdout. Seul le prompt passe par \stderr.
-        	Et puisque \coqtop ne renvoie aucun autre signal, impossible \textit{a priori} de savoir si une réponse est une erreur ou pas.
+        	Une réponse de \coqtop{}, qu'elle soit bonne ou mauvaise, est donnée sur \stdout{}. Seul le prompt passe par \stderr{}.
+        	Et puisque \coqtop{} ne renvoie aucun autre signal, impossible \textit{a priori} de savoir si une réponse est une erreur ou pas.
 
         \subsubsection{Les réponses vides}
 
@@ -153,7 +153,7 @@
     	    
     	    Premièrement, la commande d'annulation d'une commande de base n'est pas la même selon que l'on est au sein d'une preuve ou non.
     	    
-    	    Ensuite, certaines commandes sont purement inutiles et sont ignorées par \coqtop.
+    	    Ensuite, certaines commandes sont purement inutiles et sont ignorées par \coqtop{}.
     	    C'est le cas de la commande \coqcode{Proof.}, qu'il ne faut surtout pas tenter d'annuler sous peine d'annuler la commande précédente.
     	    
     	    Enfin, dans certains cas, il est tout simplement impossible actuellement d'annuler une seule opération.
@@ -163,18 +163,18 @@
     	    Pire encore, dans le cas de preuves imbriquées, \coqcode{Reset truc} annule toutes les preuves jusqu'à revenir en mode Galina.
     	    
             Une solution envisagée était d'utiliser les commandes \coqcode{Write State} et \coqcode{Restore State} à chaque étape pour pouvoir revenir en arrière plus facilement.
-            Seulement \coqtop est tellement surprenant que :
+            Seulement \coqtop{} est tellement surprenant que :
             \begin{itemize}
-             	\item \coqcode{Write State} ne fait pas que sauvegarder l'état, il réinitialise \coqtop
+             	\item \coqcode{Write State} ne fait pas que sauvegarder l'état, il réinitialise \coqtop{}
              	\item \coqcode{Restore State} ne fonctionne pas du tout !
              \end{itemize}
 		
-		Nous avons donc contacté Vincent Gross (INRIA), et de cette discussion il ressort qu' « il n'y a à l'heure actuelle aucune séparation entre \coq et ses interfaces de communication (\coqtop, \coqide) », et que si on a du mal à travailler de cette manière, « c'est tout simplement parce qu'il n'existe aucune API ».
+		Nous avons donc contacté Vincent Gross (INRIA), et de cette discussion il ressort qu' « il n'y a à l'heure actuelle aucune séparation entre \coq{} et ses interfaces de communication (\coqtop{}, \coqide{}) », et que si on a du mal à travailler de cette manière, « c'est tout simplement parce qu'il n'existe aucune API ».
 		Aucun moyen, donc, de faire notre propre interface sans faire des choses (très) sales.
 				
 \section{Le résultat actuel}
 
-    \subsection{Ce que Coquille fait et que \coqide ne fait pas !}
+    \subsection{Ce que Coquille fait et que \coqide{} ne fait pas !}
     
         \subsubsection{Au niveau du code}
         
@@ -210,9 +210,9 @@
         \subsubsection{Au niveau du langage}
 
             \begin{itemize}
-                \item La gestion de ``Ltac Debug" (cf. Fig \ref{fig:ltacdebug})
-                C'est une interface que nous avons mis au point et qui permet de voir en détail l'exécution d'une tactique en \coq, avec une interface de parcours des résultats
-                \item Gérer plusieurs instances de \coqtop, une par onglet ouvert, sans annuler tout à chaque changement d'onglet
+                \item La gestion de \coqcode{Ltac Debug} (cf. Fig \ref{fig:ltacdebug})
+                C'est une interface que nous avons mis au point et qui permet de voir en détail l'exécution d'une tactique en \coq{}, avec une interface de parcours des résultats
+                \item Gérer plusieurs instances de \coqtop{}, une par onglet ouvert, sans annuler tout à chaque changement d'onglet
                 \item Un affichage des résultats en version classique ou $\LaTeX$-like (cf. Fig \ref{fig:unicode})
                 \item L'action « Send / Unsend » d'envoi d'une commande est considérée comme une action comme les autres, donc « Undo / Redo » peut agir dessus
             \end{itemize}
@@ -229,7 +229,7 @@
 	            \label{fig:unicode}
             \end{figure}
             
-    \subsection{Ce que \coqide fait et que Coquille ne fait pas (encore)}
+    \subsection{Ce que \coqide{} fait et que Coquille ne fait pas (encore)}
     
         \subsubsection{Au niveau du code}
 
@@ -241,7 +241,7 @@
         
             \begin{itemize}
                 \item Le Proof Wizard.
-                \item La gestions de la compilation et des exportations : \coqide permet de compiler / exporte un fichier sans passer par ligne de commande
+                \item La gestions de la compilation et des exportations : \coqide{} permet de compiler / exporte un fichier sans passer par ligne de commande
             \end{itemize}
 
     \subsection{Ce que ni l'un ni l'autre ne font bien}
@@ -258,15 +258,15 @@
                 \item La gestion de l'aide
                 \item La gestion des « \coqcode{Write State} / \coqcode{Restore State} ».
                 En théorie, la commande \coqcode{Write State} est censée sauvegarder l'état de l'interpréteur (variables, commandes envoyées, etc), tandis que \coqcode{Restore State} est censé restaurer cet état.
-			    En pratique, \coqcode{Restore State} ne marche pas dans \coqtop, ce qui nous empêche de l'utiliser.
+			    En pratique, \coqcode{Restore State} ne marche pas dans \coqtop{}, ce qui nous empêche de l'utiliser.
             \end{itemize}
 
 \section{Les objectifs}
 
-La majorité des objectifs que le WP IDE s'étaient fixés à l'origine ont été largement atteints puisqu'on dispose d'un IDE fonctionnel si on s'interdit la gestion de l'environnement (\coqcode{Write State} \& cie),  qui reprend \coqide avec plus de fonctionnalités et qui est plus pratique à utiliser dans l'optique du projet.
+La majorité des objectifs que le WP IDE s'étaient fixés à l'origine ont été largement atteints puisqu'on dispose d'un IDE fonctionnel si on s'interdit la gestion de l'environnement (\coqcode{Write State} \& cie),  qui reprend \coqide{} avec plus de fonctionnalités et qui est plus pratique à utiliser dans l'optique du projet.
 
-Il serait envisageable de continuer le projet si l'INRIA finit de développer une interface de dialogue avec \coq utilisable.
+Il serait envisageable de continuer le projet si l'INRIA finit de développer une interface de dialogue avec \coq{} utilisable.
 En attendant, on ne peut que corriger les bugs.
 
-Au niveau de la distribution, nous avons déjà mis Coquille sous forme de paquets (``.deb" \& cie). Il nous reste donc principalement à distribuer et diffuser Coquille dans la communauté \coq et à y inclure un petit manuel d'utilisation. Un manuel programmeur basique est déjà mis à disposition.
+Au niveau de la distribution, nous avons déjà mis Coquille sous forme de paquets (\code{.deb} \& cie). Il nous reste donc principalement à distribuer et diffuser Coquille dans la communauté \coq{} et à y inclure un petit manuel d'utilisation. Un manuel programmeur basique est déjà mis à disposition.
 
