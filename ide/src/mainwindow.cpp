@@ -102,17 +102,17 @@ MainWindow::MainWindow( Settings *settings )
 /***************************/
 
 #ifdef TERMINAL
-    m_terminalDock = new QDockWidget( this );
-    m_terminalDock->setFeatures(QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable);
-
-//    MainWindowClass->addDockWidget(QDockWidgetArstatic_cast<Qt::DockWidgetArea>(1), dockWidget5);
-//    ui->verticalLayout->addDockWidget( m_terminalDock );
-    on_actionTerminal_toggled( ui->actionTerminal->isChecked() );
-    connect( m_terminalDock, SIGNAL(visibilityChanged(bool)), this, SLOT(showTerminal(bool)) );
-//    on_actionRestartTerminal_triggered();
-
-    ui->actionTerminal->setVisible( true );
-    ui->actionRestartTerminal->setVisible( true );
+//    m_terminalDock = new QDockWidget( this );
+//    m_terminalDock->setFeatures(QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable);
+//
+////    MainWindowClass->addDockWidget(QDockWidgetArstatic_cast<Qt::DockWidgetArea>(1), dockWidget5);
+////    ui->verticalLayout->addDockWidget( m_terminalDock );
+//    on_actionTerminal_toggled( ui->actionTerminal->isChecked() );
+//    connect( m_terminalDock, SIGNAL(visibilityChanged(bool)), this, SLOT(showTerminal(bool)) );
+////    on_actionRestartTerminal_triggered();
+//
+//    ui->actionTerminal->setVisible( true );
+//    ui->actionRestartTerminal->setVisible( true );
 #endif
 
     on_actionOpenedDocuments_toggled( ui->actionOpenedDocuments->isChecked() );
@@ -581,49 +581,49 @@ void MainWindow::showTerminal( bool visible ) {
 void MainWindow::on_actionRestartTerminal_triggered() {
     qDebug() << "restart terminal";
 
-    m_terminalDock->~QDockWidget();
-    if( m_terminalDock )
-        delete m_terminalDock;
-    m_terminalDock = new QDockWidget( this );
-    m_terminalDock->setFeatures(QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable);
-
-//    MainWindowClass->addDockWidget(QDockWidgetArstatic_cast<Qt::DockWidgetArea>(1), dockWidget5);
-//    ui->verticalLayout->addDockWidget( m_terminalDock );
-    on_actionTerminal_toggled( ui->actionTerminal->isChecked() );
-    connect( m_terminalDock, SIGNAL(visibilityChanged(bool)), this, SLOT(showTerminal(bool)) );
-    on_actionRestartTerminal_triggered();
-
-    ui->actionTerminal->setVisible( true );
-    ui->actionRestartTerminal->setVisible( true );
-
-
-
-
-    qDebug() << "forget previous terminal";
-    m_terminalDock->setWidget(0);
-    qDebug() << "delete previous terminal";
-
-    qDebug() << "create new terminal";
-
-//    m_terminal = new QTermWidget();
-//    qDebug() << "new terminal is " << m_terminal;
-
-//    QFont font = QApplication::font();
-//    font.setFamily("Terminus");
-//    font.setPointSize(11);
+//    m_terminalDock->~QDockWidget();
+//    if( m_terminalDock )
+//        delete m_terminalDock;
+//    m_terminalDock = new QDockWidget( this );
+//    m_terminalDock->setFeatures(QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable);
 //
-//    m_terminal->setTerminalFont(font);
-
-//    console->setColorScheme(COLOR_SCHEME_BLACK_ON_LIGHT_YELLOW);
-
-//    m_terminal->setScrollBarPosition(QTermWidget::ScrollBarRight);
-
-    qDebug() << "dock terminal is " << m_terminalDock->widget();
-//    m_terminalDock->setWidget( m_terminal );
-    qDebug() << "dock terminal is " << m_terminalDock->widget();
-    addDockWidget( Qt::BottomDockWidgetArea, m_terminalDock );
-
-//    ui->verticalLayout->insertWidget( 0, m_terminal );
+////    MainWindowClass->addDockWidget(QDockWidgetArstatic_cast<Qt::DockWidgetArea>(1), dockWidget5);
+////    ui->verticalLayout->addDockWidget( m_terminalDock );
+//    on_actionTerminal_toggled( ui->actionTerminal->isChecked() );
+//    connect( m_terminalDock, SIGNAL(visibilityChanged(bool)), this, SLOT(showTerminal(bool)) );
+//    on_actionRestartTerminal_triggered();
+//
+//    ui->actionTerminal->setVisible( true );
+//    ui->actionRestartTerminal->setVisible( true );
+//
+//
+//
+//
+//    qDebug() << "forget previous terminal";
+//    m_terminalDock->setWidget(0);
+//    qDebug() << "delete previous terminal";
+//
+//    qDebug() << "create new terminal";
+//
+////    m_terminal = new QTermWidget();
+////    qDebug() << "new terminal is " << m_terminal;
+//
+////    QFont font = QApplication::font();
+////    font.setFamily("Terminus");
+////    font.setPointSize(11);
+////
+////    m_terminal->setTerminalFont(font);
+//
+////    console->setColorScheme(COLOR_SCHEME_BLACK_ON_LIGHT_YELLOW);
+//
+////    m_terminal->setScrollBarPosition(QTermWidget::ScrollBarRight);
+//
+//    qDebug() << "dock terminal is " << m_terminalDock->widget();
+////    m_terminalDock->setWidget( m_terminal );
+//    qDebug() << "dock terminal is " << m_terminalDock->widget();
+//    addDockWidget( Qt::BottomDockWidgetArea, m_terminalDock );
+//
+////    ui->verticalLayout->insertWidget( 0, m_terminal );
 }
 #endif
 
