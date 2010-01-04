@@ -7,9 +7,7 @@ To compile with Snow Leopard
 You must use QT 4.6.0 or later
 
 Pour compiler :
-- se placer dans le répertoire contenant ce README (...../COQUILLE/ide)
-- "cleanAll.sh"
-- "compile.sh"
+make
 
 Pour executer :
 
@@ -21,5 +19,5 @@ Pour executer :
 
 "open coquille.app" 
 
-Dépôt du paquet :
+Dépôt du paquet (non à jour pour le moment) :
 deb http://perso.ens-lyon.fr/yann.hourdel/apt karmic main
