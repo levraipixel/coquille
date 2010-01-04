@@ -1,1 +1,0 @@
-unix:!mac:CONFIG += terminal

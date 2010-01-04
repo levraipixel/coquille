@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/SyntaxPrefix" >
-        <file alias="defaultSyntax" >syntax/coq.qxf</file>
-        <file>syntax/coq.qnfa</file>
-        <file alias="keywordsList" >syntax/keywords.csv</file>
-        <file alias="tacticsList" >syntax/tactics.csv</file>
-    </qresource>
-</RCC>
