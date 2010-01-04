@@ -1,7 +1,7 @@
-This package was debianized by Yann <yann.hourdel@ens-lyon.org> on
+This package was debianized by Yann Hourdel <yann.hourdel@ens-lyon.org> on
 Sat, 12 Dec 2009 14:51:48 +0100.
 
-It was downloaded from <url://TODO>
+It was downloaded from <url://http://code.google.com/p/coquille/>
 
 Upstream Author(s):
 
@@ -17,7 +17,7 @@ License:
 
 The Debian packaging is:
 
-    Copyright (C) 2009 Yann <yann.hourdel@ens-lyon.org>
+    Copyright (C) 2009 Yann Hourdel <yann.hourdel@ens-lyon.org>
 
 and is licensed under the GPL version 3, 
 see `/usr/share/common-licenses/GPL-3'.
