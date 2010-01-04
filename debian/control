@@ -1,0 +1,16 @@
+Source: coquille
+Section: math
+Priority: extra
+Maintainer: Yann Hourdel <yann.hourdel@ens-lyon.org>
+Build-Depends:
+ debhelper (>= 7)
+Homepage: http://code.google.com/p/coquille/
+
+Package: coquille
+Architecture: any
+Depends:
+ ${math:Depends},
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: A GUI for Coq Proof Assitant Language
+ This is a GUI for editing and interpreting files in Coq language.

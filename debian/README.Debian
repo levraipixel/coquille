@@ -1,0 +1,20 @@
+Coquille for Debian
+----------------
+
+To compile with Snow Leopard you must use QT 4.6.0 or later
+
+Pour compiler :
+- se placer dans le répertoire contenant ce README (...../COQUILLE/ide)
+- "cleanAll.sh"
+- "qmake-qt4"
+- "make"
+
+Pour executer :
+
+** Linux **
+
+"./coquille"
+
+** Mac OSX **
+
+"open coquille.app"

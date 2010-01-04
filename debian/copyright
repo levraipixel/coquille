@@ -1,0 +1,26 @@
+This package was debianized by Yann Hourdel <yann.hourdel@ens-lyon.org> on
+Sat, 12 Dec 2009 14:51:48 +0100.
+
+It was downloaded from <url://http://code.google.com/p/coquille/>
+
+Upstream Author(s):
+
+    <ENS Lyon M1IF 2009-2010>
+
+Copyright:
+
+    <Copyright (C) 2010 ENS Lyon M1IF>
+
+License:
+
+    <GPL>
+
+The Debian packaging is:
+
+    Copyright (C) 2009 Yann Hourdel <yann.hourdel@ens-lyon.org>
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.
+
+# Please also look if there are files or directories which have a
+# different copyright/license attached and list them here.
