@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/LanguagePrefix" >
-        <file>languages/coquille_es.qm</file>
-        <file>languages/coquille_fr.qm</file>
-        <file>languages/coquille_ro.qm</file>
-        <file>languages/coquille_us.qm</file>
-    </qresource>
-</RCC>
