@@ -1,25 +1,23 @@
-Paquets nécessaires (liste à modifier) :
-- coq
+Essential packages :
 - build-essential
 - libqt4-dev
+- coq
 
-To compile with Snow Leopard 
-You must use QT 4.6.0 or later
-
-Pour compiler :
+************************************************************************
+To compile :
 make
 
-Pour executer :
+WARNING : to compile with Snow Leopard you must use QT 4.6.0 or later
+************************************************************************
+------------------------------------------------------------------------
+************************************************************************
+To execute :
 
-** Linux **
+Linux : './coquille'
+Mac OSX : 'open coquille.app'
+************************************************************************
 
-"./coquille"
-
-** Mac OSX **
-
-"open coquille.app" 
-
-Dépôt du paquet (non à jour pour le moment) :
+Package hosting (not updated for the moment) :
 deb http://perso.ens-lyon.fr/yann.hourdel/apt karmic main
 
-Pour toute question : yann.hourdel@gmail.com
+For all your questions : yann.hourdel@gmail.com
