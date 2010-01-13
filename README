@@ -19,5 +19,8 @@ Mac OSX : 'open coquille.app'
 
 Package hosting (not updated for the moment) :
 deb http://perso.ens-lyon.fr/yann.hourdel/apt karmic main
+deb-src http://perso.ens-lyon.fr/yann.hourdel/apt karmic main
 
 For all your questions : yann.hourdel@gmail.com
+
+http://code.google.com/p/coquille/
